@@ -7,7 +7,6 @@ import quanlysf.DAO.*;
 import javax.swing.JOptionPane;
 
 import java.sql.SQLException;
-import java.time.chrono.JapaneseChronology;
 import java.util.List;
 /**
  *
@@ -252,6 +251,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         // Create dialog 
         EmployeeAdd dialog = new EmployeeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, employeeDAO, null, false);
         dialog.setVisible(true);
+
     }//GEN-LAST:event_btnADDActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
