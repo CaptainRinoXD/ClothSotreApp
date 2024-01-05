@@ -13,7 +13,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
 
     @Override
     // Phương thức get id 
-    public List<Employee> get(int id) throws SQLException {
+    public List<Employee> get(int id) throws SQLException, FileNotFoundException, IOException {
         DatabaseConnector dbConnector;
         dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
@@ -42,7 +42,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
 
     @Override
     // Phương thức gọi tất cả bảng employee
-    public List<Employee> getALL() throws SQLException {
+    public List<Employee> getALL() throws SQLException, FileNotFoundException, IOException {
         DatabaseConnector dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
 
@@ -96,7 +96,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
     }
 
     @Override
-    public int update(Employee employee) throws SQLException {
+    public int update(Employee employee) throws SQLException, FileNotFoundException, IOException {
         PreparedStatement myStmt = null;
         DatabaseConnector dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
@@ -119,7 +119,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
     }
 
     @Override
-    public int delete(int id) throws SQLException {
+    public int delete(int id) throws SQLException, FileNotFoundException, IOException {
         // TODO Auto-generated method stub
         PreparedStatement myStmt = null;
         DatabaseConnector dbConnector = new DatabaseConnector();
