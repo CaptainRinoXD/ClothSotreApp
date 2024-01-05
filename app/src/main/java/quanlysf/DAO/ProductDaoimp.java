@@ -71,7 +71,7 @@ public class ProductDaoimp implements ProductDao {
     }
 
     @Override
-    public int insert(Product product) throws SQLException, FileNotFoundException {
+    public int insert(Product product) throws SQLException, IOException {
         DatabaseConnector dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
         String sql = "insert into product"

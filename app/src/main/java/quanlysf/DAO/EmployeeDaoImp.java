@@ -1,5 +1,7 @@
 package quanlysf.DAO;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +69,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
 
     @Override
     // Phương thức nhập vào bảng empolyee
-    public int insert(Employee employee) throws SQLException {
+    public int insert(Employee employee) throws SQLException, FileNotFoundException, IOException {
         DatabaseConnector dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
         String sql = "insert into employees"

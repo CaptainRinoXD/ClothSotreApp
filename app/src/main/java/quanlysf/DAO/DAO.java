@@ -23,7 +23,7 @@ public interface DAO<T> {
 
     int save(T t) throws SQLException;
 
-    int insert(T t) throws SQLException, FileNotFoundException;
+    int insert(T t) throws SQLException, FileNotFoundException, IOException;
     
     int update (T t) throws SQLException;
 
