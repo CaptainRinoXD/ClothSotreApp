@@ -114,7 +114,18 @@ public class EmployeesSearch extends javax.swing.JFrame {
         btnSearchProduct.setText("Search");
         btnSearchProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchProductActionPerformed(evt);
+                try {
+                    btnSearchProductActionPerformed(evt);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
