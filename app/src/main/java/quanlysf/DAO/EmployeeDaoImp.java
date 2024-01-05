@@ -1,7 +1,5 @@
 package quanlysf.DAO;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
 
     @Override
     // Phương thức get id 
-    public List<Employee> get(int id) throws SQLException, FileNotFoundException, IOException {
+    public List<Employee> get(int id) throws SQLException {
         DatabaseConnector dbConnector;
         dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
@@ -42,7 +40,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
 
     @Override
     // Phương thức gọi tất cả bảng employee
-    public List<Employee> getALL() throws SQLException, FileNotFoundException, IOException {
+    public List<Employee> getALL() throws SQLException {
         DatabaseConnector dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
 
@@ -69,7 +67,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
 
     @Override
     // Phương thức nhập vào bảng empolyee
-    public int insert(Employee employee) throws SQLException, FileNotFoundException, IOException {
+    public int insert(Employee employee) throws SQLException {
         DatabaseConnector dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
         String sql = "insert into employees"
@@ -96,7 +94,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
     }
 
     @Override
-    public int update(Employee employee) throws SQLException, FileNotFoundException, IOException {
+    public int update(Employee employee) throws SQLException {
         PreparedStatement myStmt = null;
         DatabaseConnector dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
@@ -119,7 +117,7 @@ public class EmployeeDaoImp implements EmployeeDAO {
     }
 
     @Override
-    public int delete(int id) throws SQLException, FileNotFoundException, IOException {
+    public int delete(int id) throws SQLException {
         // TODO Auto-generated method stub
         PreparedStatement myStmt = null;
         DatabaseConnector dbConnector = new DatabaseConnector();

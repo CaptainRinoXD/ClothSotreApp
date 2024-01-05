@@ -19,15 +19,15 @@ import quanlysf.function.DatabaseConnector;
 public interface DAO<T> {
     List<T>get(int i) throws SQLException, FileNotFoundException, IOException;
 
-    List<T> getALL() throws SQLException, FileNotFoundException, IOException;
+    List<T> getALL() throws SQLException;
 
     int save(T t) throws SQLException;
 
-    int insert(T t) throws SQLException, FileNotFoundException, IOException;
+    int insert(T t) throws SQLException, FileNotFoundException;
     
-    int update (T t) throws SQLException, FileNotFoundException, IOException;
+    int update (T t) throws SQLException;
 
-    int delete (int i) throws SQLException, FileNotFoundException, IOException;
+    int delete (int i) throws SQLException;
     
 }
 

@@ -1,12 +1,10 @@
 package quanlysf.function;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.*;
 
 public class Update {
     private DatabaseConnector dbConnector = new DatabaseConnector();
 
-    public void updateMethod() throws FileNotFoundException, IOException {
+    public void updateMethod() {
         try (Connection connection = dbConnector.connect()) {
             // 1. tạo ra một lệnh sql cho PStatment
             String sql = "UPDATE employees SET name = ? WHERE id = ?";
