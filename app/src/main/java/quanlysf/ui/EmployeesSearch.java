@@ -5,6 +5,8 @@
 package quanlysf.ui;
 import quanlysf.DAO.*;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import javax.swing.table.DefaultTableModel;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -461,6 +463,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnSearchProductActionPerformed
         try {
             String ProductIDtext = ProductIDtextField.getText();
+            
             List<Product> products = null;
             if (!ProductIDtext.trim().isEmpty()) {
                 int ProductID = Integer.parseInt(ProductIDtext);
@@ -468,6 +471,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 ProductTbModel model = new ProductTbModel(products);
 
                 jTable2.setModel(model);
+                model.clearProductImages();
             } if (ProductIDtext.trim().isEmpty()) {
                 products = productDao.getALL();
                 ProductTbModel model = new ProductTbModel(products);

@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.io.*;
 
-import quanlysf.function.DatabaseConnector;
 
+import quanlysf.function.DatabaseConnector;
 import java.util.ArrayList;
 
 
@@ -35,10 +35,11 @@ public class ProductDaoimp implements ProductDao {
             InputStream imageStream = rs.getBinaryStream("ProductImage");
             
             // Lưu ảnh lấy được sang file tạm thời
+
             File imageFile = null;
             if (imageStream != null) {
                 // Lưu ảnh lấy được sang file tạm thời
-                imageFile = new File("src/main/java/quanlysf/Image/image.jpg");
+                imageFile = new File("TempImage.jpg");
                 try (FileOutputStream fos = new FileOutputStream(imageFile)) {
                     byte[] buffer = new byte[1024];
                     int bytesRead;
@@ -54,6 +55,8 @@ public class ProductDaoimp implements ProductDao {
 
             Product product = new Product(OProductID, TypeID, ProductName, ProductQuanity, imageFile,ImpPrice,ExpPrice,impDate);
             products.add(product);
+
+
         }
         return products;
     }

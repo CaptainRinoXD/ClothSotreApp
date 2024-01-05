@@ -56,12 +56,12 @@ public class Main {
         //System.out.println(employeeDAO.get(1));
 
 
-        EmployeesSearch employeesSearch = new EmployeesSearch();
-        employeesSearch.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        employeesSearch.setVisible(true);
+        //EmployeesSearch employeesSearch = new EmployeesSearch();
+        //employeesSearch.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //employeesSearch.setVisible(true);
 
-        //ProductDao productDao = new ProductDaoimp();
-        //System.out.println(productDao.get(1));
+        ProductDao productDao = new ProductDaoimp();
+        System.out.println(productDao.get(3));
         
         //Product product = new Product(1, "AoBaL", "Áo ba lỗ pumma", 50, null, 100000, 1000000, null);
         //ProductDao productDao = new ProductDaoimp();

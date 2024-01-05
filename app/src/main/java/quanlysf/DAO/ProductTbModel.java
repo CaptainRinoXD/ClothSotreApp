@@ -1,12 +1,15 @@
 package quanlysf.DAO;
+import java.io.File;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 public class ProductTbModel extends AbstractTableModel {
     private static final int ProductID_COL = 0;
     private static final int TypeID_COL = 1;
     private static final int ProductName_COL = 2;
-    private static final int ProductImage_COL =3;
+    public static final int ProductImage_COL =3;
     private static final int ImpPrice_COL = 4;
     private static final int ExpPrice_COL = 5;
     private static final int ImpDate_COL = 6;
@@ -26,7 +29,7 @@ public class ProductTbModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-       return columnNames.length -1;
+       return columnNames.length;
     }
 
     @Override
@@ -46,7 +49,12 @@ public class ProductTbModel extends AbstractTableModel {
             case ProductName_COL:
                 return temProduct.getProductName();
             case ProductImage_COL:
-                return temProduct.getProductImage();
+                File productImageFile = temProduct.getProductImage();
+                if (productImageFile != null) {
+                    return new ImageIcon(productImageFile.toString());
+                } else {
+                    return ("no Image"); // or return some default image/icon
+                }
             case ImpPrice_COL:
                 return temProduct.getImpPirce();
             case ExpPrice_COL:
@@ -64,4 +72,12 @@ public class ProductTbModel extends AbstractTableModel {
     public Class getColumnClass(int c) {
         return getValueAt(0, c).getClass();
     }
+
+    public void clearProductImages() {
+        for (Product product : products) {
+            product.setProductImage(null);
+        }
+        fireTableDataChanged();
+    }
+
 }

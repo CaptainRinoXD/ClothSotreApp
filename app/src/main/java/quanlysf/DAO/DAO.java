@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import quanlysf.DAO.*;
-import quanlysf.function.DatabaseConnector;
 
 /**
  *

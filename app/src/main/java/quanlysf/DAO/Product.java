@@ -1,20 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package quanlysf.DAO;
-import java.io.*;
-import java.sql.*;
-/**
- *
- * @author dinhd
- */
+
+import java.io.File;
+import java.sql.Date;
+
 public class Product {
 
-    @Override
-    public String toString() {
-        return "Product{" + "ProductID=" + ProductID + ", TypeID=" + TypeID + ", ProductName=" + ProductName + ", ProductQuanity=" + ProductQuanity + ", ProductImage=" + ProductImage + ", ImpPirce=" + ImpPirce + ", ExpPirce=" + ExpPirce + ", ImpDate=" + ImpDate + '}';
-    }
+    private int ProductID;
+    private String TypeID;
+    private String ProductName;
+    private int ProductQuanity;
+    private File ProductImage;
+    private int ImpPirce;
+    private int ExpPirce;
+    private Date ImpDate;
 
     public int getProductID() {
         return ProductID;
@@ -72,15 +70,15 @@ public class Product {
         this.ExpPirce = ExpPirce;
     }
 
-    public java.sql.Date getImpDate() {
+    public Date getImpDate() {
         return ImpDate;
     }
 
-    public void setImpDate(java.sql.Date ImpDate) {
+    public void setImpDate(Date ImpDate) {
         this.ImpDate = ImpDate;
     }
 
-    public Product(int ProductID, String TypeID, String ProductName, int ProductQuanity, File ProdcutImage, int ImpPirce, int ExpPirce, java.sql.Date ImpDate) {
+    public Product(int ProductID, String TypeID, String ProductName, int ProductQuanity, File ProductImage, int ImpPirce, int ExpPirce, Date ImpDate) {
         this.ProductID = ProductID;
         this.TypeID = TypeID;
         this.ProductName = ProductName;
@@ -90,12 +88,4 @@ public class Product {
         this.ExpPirce = ExpPirce;
         this.ImpDate = ImpDate;
     }
-    private int ProductID;
-    private String TypeID;
-    private String ProductName;
-    private int ProductQuanity;
-    private File ProductImage;
-    private int ImpPirce;
-    private int ExpPirce;
-    private java.sql.Date ImpDate;
 }
