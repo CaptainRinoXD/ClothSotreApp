@@ -4,6 +4,8 @@
  */
 package quanlysf.DAO;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,13 +17,13 @@ import quanlysf.function.DatabaseConnector;
  * @author dinhd
  */
 public interface DAO<T> {
-    List<T>get(int i) throws SQLException;
+    List<T>get(int i) throws SQLException, FileNotFoundException, IOException;
 
     List<T> getALL() throws SQLException;
 
     int save(T t) throws SQLException;
 
-    int insert(T t) throws SQLException;
+    int insert(T t) throws SQLException, FileNotFoundException;
     
     int update (T t) throws SQLException;
 
