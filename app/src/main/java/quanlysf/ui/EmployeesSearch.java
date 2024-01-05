@@ -6,6 +6,8 @@ package quanlysf.ui;
 import quanlysf.DAO.*;
 import javax.swing.JOptionPane;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 /**
@@ -14,6 +16,7 @@ import java.util.List;
  */
 public class EmployeesSearch extends javax.swing.JFrame {
     private EmployeeDAO employeeDAO;
+    private ProductDao productDao;
 
     /**
      * Creates new form EmployeesSearch
@@ -24,6 +27,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         try {
             employeeDAO = new EmployeeDaoImp();
+            productDao = new ProductDaoimp();
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this,"Error" + exc , "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -56,6 +60,14 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTabbedPane = new javax.swing.JTabbedPane();
         ProductPanel = new javax.swing.JPanel();
+        btnSearchProduct = new javax.swing.JButton();
+        ProductIDtextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btnDeleteProduct = new javax.swing.JButton();
+        btnUpdateProduct = new javax.swing.JButton();
+        btnADDproduct = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         ProductTypesPanel = new javax.swing.JPanel();
         EmployeePanel = new javax.swing.JPanel();
         btnSearch = new javax.swing.JButton();
@@ -99,15 +111,96 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addGap(0, 55, Short.MAX_VALUE))
         );
 
+        btnSearchProduct.setText("Search");
+        btnSearchProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchProductActionPerformed(evt);
+            }
+        });
+
+        ProductIDtextField.setToolTipText("");
+        ProductIDtextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductIDtextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel3.setText("Enter Employee ID");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        btnDeleteProduct.setBackground(new java.awt.Color(236, 232, 255));
+        btnDeleteProduct.setText("Delete Employee");
+        btnDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteProductActionPerformed(evt);
+            }
+        });
+
+        btnUpdateProduct.setBackground(new java.awt.Color(236, 232, 255));
+        btnUpdateProduct.setText("Update Employee");
+        btnUpdateProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProductActionPerformed(evt);
+            }
+        });
+
+        btnADDproduct.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDproduct.setText("Add Employee");
+        btnADDproduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDproductActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(null);
+
+        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
         javax.swing.GroupLayout ProductPanelLayout = new javax.swing.GroupLayout(ProductPanel);
         ProductPanel.setLayout(ProductPanelLayout);
         ProductPanelLayout.setHorizontalGroup(
             ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 897, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+            .addGroup(ProductPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnADDproduct, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateProduct)
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteProduct)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProductIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearchProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         ProductPanelLayout.setVerticalGroup(
             ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 447, Short.MAX_VALUE)
+            .addGroup(ProductPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnADDproduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ProductIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(btnSearchProduct))
+                .addContainerGap())
         );
 
         jTabbedPane.addTab("Products", ProductPanel);
@@ -200,13 +293,13 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1)
         );
         EmployeePanelLayout.setVerticalGroup(
             EmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EmployeePanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(EmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,6 +447,46 @@ public class EmployeesSearch extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(EmployeesSearch.this, "Employee delete succesfully.","Employee Deleted",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnSearchProductActionPerformed
+        try {
+            String ProductIDtext = ProductIDtextField.getText();
+            List<Product> products = null;
+            if (!ProductIDtext.trim().isEmpty()) {
+                int ProductID = Integer.parseInt(ProductIDtext);
+                products = productDao.get(ProductID);
+                ProductTbModel model = new ProductTbModel(products);
+
+                jTable2.setModel(model);
+            } if (ProductIDtext.trim().isEmpty()) {
+                products = productDao.getALL();
+                ProductTbModel model = new ProductTbModel(products);
+                jTable2.setModel(model);
+            } if (products.isEmpty()) {
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "No product found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSearchProductActionPerformed
+
+    private void ProductIDtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductIDtextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductIDtextFieldActionPerformed
+
+    private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteProductActionPerformed
+
+    private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProductActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateProductActionPerformed
+
+    private void btnADDproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnADDproductActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -393,18 +526,26 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JPanel BillPanel;
     private javax.swing.JPanel CostumersPanel;
     private javax.swing.JPanel EmployeePanel;
+    private javax.swing.JTextField ProductIDtextField;
     private javax.swing.JPanel ProductPanel;
     private javax.swing.JPanel ProductTypesPanel;
     private javax.swing.JButton btnADD;
+    private javax.swing.JButton btnADDproduct;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearchProduct;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUpdateProduct;
     private javax.swing.JTextField employeeIDtextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
