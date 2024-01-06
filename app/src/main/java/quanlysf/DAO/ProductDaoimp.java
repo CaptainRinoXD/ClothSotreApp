@@ -55,8 +55,6 @@ public class ProductDaoimp implements ProductDao {
 
             Product product = new Product(OProductID, TypeID, ProductName, ProductQuanity, imageFile,ImpPrice,ExpPrice,impDate);
             products.add(product);
-
-
         }
         return products;
     }

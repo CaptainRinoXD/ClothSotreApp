@@ -9,13 +9,14 @@ public class ProductTbModel extends AbstractTableModel {
     private static final int ProductID_COL = 0;
     private static final int TypeID_COL = 1;
     private static final int ProductName_COL = 2;
-    public static final int ProductImage_COL =3;
-    private static final int ImpPrice_COL = 4;
-    private static final int ExpPrice_COL = 5;
-    private static final int ImpDate_COL = 6;
-    public static final int Object_COL = 7;
+    private static final int ProdductQuanity_COL = 3;
+    public static final int ProductImage_COL = 4;
+    private static final int ImpPrice_COL = 5;
+    private static final int ExpPrice_COL = 6;
+    private static final int ImpDate_COL = 7;
+    public static final int Object_COL = 8;
 
-    private String[] columnNames = { "ProductID", "TypeID", "Product Name", "Product Image", "Import Price","Export Price","Import Date"};
+    private String[] columnNames = { "ProductID", "TypeID", "Product Name"," Product Quantity", "Product Image", "Import Price","Export Price","Import Date"};
     private List<Product> products;
 
     public ProductTbModel(List<Product> thProducts) {
@@ -48,10 +49,15 @@ public class ProductTbModel extends AbstractTableModel {
                 return temProduct.getTypeID();
             case ProductName_COL:
                 return temProduct.getProductName();
+            case ProdductQuanity_COL:
+                return temProduct.getProductQuanity();
             case ProductImage_COL:
                 File productImageFile = temProduct.getProductImage();
                 if (productImageFile != null) {
-                    return new ImageIcon(productImageFile.toString());
+                    // RETURN ICON BUT cannot change
+                    //return new ImageIcon(productImageFile.toString());
+
+                    return ("Image");
                 } else {
                     return ("no Image"); // or return some default image/icon
                 }
@@ -73,6 +79,7 @@ public class ProductTbModel extends AbstractTableModel {
         return getValueAt(0, c).getClass();
     }
 
+    
     public void clearProductImages() {
         for (Product product : products) {
             product.setProductImage(null);
@@ -80,4 +87,14 @@ public class ProductTbModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    
+    public void setRowCountToZero() {
+         // Xóa danh sách sản phẩm
+        fireTableDataChanged();  // Thông báo cho bảng biết rằng dữ liệu đã thay đổi
+    }
+
+    public void resetData(List<Product> newProducts) {
+        products = newProducts;
+        fireTableDataChanged();
+    }
 }

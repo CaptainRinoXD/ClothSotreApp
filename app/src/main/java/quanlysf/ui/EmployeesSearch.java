@@ -6,6 +6,7 @@ package quanlysf.ui;
 import quanlysf.DAO.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import java.io.FileNotFoundException;
@@ -19,6 +20,7 @@ import java.util.List;
 public class EmployeesSearch extends javax.swing.JFrame {
     private EmployeeDAO employeeDAO;
     private ProductDao productDao;
+    private String previousProductIDValue = "";
 
     /**
      * Creates new form EmployeesSearch
@@ -68,6 +70,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         btnDeleteProduct = new javax.swing.JButton();
         btnUpdateProduct = new javax.swing.JButton();
         btnADDproduct = new javax.swing.JButton();
+        btnViewProduct = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         ProductTypesPanel = new javax.swing.JPanel();
@@ -94,24 +97,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Employees Management Software");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 55, Short.MAX_VALUE))
-        );
+        jLabel2.setText("ClothStore Management Software");
 
         btnSearchProduct.setText("Search");
         btnSearchProduct.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +130,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         btnDeleteProduct.setBackground(new java.awt.Color(236, 232, 255));
-        btnDeleteProduct.setText("Delete Employee");
+        btnDeleteProduct.setText("Delete Product");
         btnDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteProductActionPerformed(evt);
@@ -152,7 +138,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         });
 
         btnUpdateProduct.setBackground(new java.awt.Color(236, 232, 255));
-        btnUpdateProduct.setText("Update Employee");
+        btnUpdateProduct.setText("Update Product");
         btnUpdateProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateProductActionPerformed(evt);
@@ -160,10 +146,29 @@ public class EmployeesSearch extends javax.swing.JFrame {
         });
 
         btnADDproduct.setBackground(new java.awt.Color(236, 232, 255));
-        btnADDproduct.setText("Add Employee");
+        btnADDproduct.setText("Add Product");
         btnADDproduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnADDproductActionPerformed(evt);
+            }
+        });
+
+        btnViewProduct.setBackground(new java.awt.Color(236, 232, 255));
+        btnViewProduct.setText("View");
+        btnViewProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnViewProductActionPerformed(evt);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -185,15 +190,17 @@ public class EmployeesSearch extends javax.swing.JFrame {
         ProductPanel.setLayout(ProductPanelLayout);
         ProductPanelLayout.setHorizontalGroup(
             ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
             .addGroup(ProductPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnADDproduct, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdateProduct)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDeleteProduct)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnViewProduct)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ProductIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,15 +211,16 @@ public class EmployeesSearch extends javax.swing.JFrame {
         ProductPanelLayout.setVerticalGroup(
             ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProductPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADDproduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeleteProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ProductIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(btnSearchProduct))
+                    .addComponent(btnSearchProduct)
+                    .addComponent(btnViewProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -222,11 +230,11 @@ public class EmployeesSearch extends javax.swing.JFrame {
         ProductTypesPanel.setLayout(ProductTypesPanelLayout);
         ProductTypesPanelLayout.setHorizontalGroup(
             ProductTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 897, Short.MAX_VALUE)
+            .addGap(0, 905, Short.MAX_VALUE)
         );
         ProductTypesPanelLayout.setVerticalGroup(
             ProductTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 447, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         jTabbedPane.addTab("Product Types", ProductTypesPanel);
@@ -295,11 +303,11 @@ public class EmployeesSearch extends javax.swing.JFrame {
             .addGroup(EmployeePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdate)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(employeeIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -311,8 +319,8 @@ public class EmployeesSearch extends javax.swing.JFrame {
         EmployeePanelLayout.setVerticalGroup(
             EmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EmployeePanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(EmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,11 +339,11 @@ public class EmployeesSearch extends javax.swing.JFrame {
         CostumersPanel.setLayout(CostumersPanelLayout);
         CostumersPanelLayout.setHorizontalGroup(
             CostumersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 897, Short.MAX_VALUE)
+            .addGap(0, 905, Short.MAX_VALUE)
         );
         CostumersPanelLayout.setVerticalGroup(
             CostumersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 447, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         jTabbedPane.addTab("Costumers", CostumersPanel);
@@ -344,28 +352,45 @@ public class EmployeesSearch extends javax.swing.JFrame {
         BillPanel.setLayout(BillPanelLayout);
         BillPanelLayout.setHorizontalGroup(
             BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 897, Short.MAX_VALUE)
+            .addGap(0, 905, Short.MAX_VALUE)
         );
         BillPanelLayout.setVerticalGroup(
             BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 447, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         jTabbedPane.addTab("     Bill     ", BillPanel);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -462,16 +487,27 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnSearchProductActionPerformed
         try {
+
             String ProductIDtext = ProductIDtextField.getText();
-            
             List<Product> products = null;
+            if (!ProductIDtext.equals(previousProductIDValue)) {
+                // Giá trị đã thay đổi, thực hiện các hành động bạn muốn ở đây
+                // Ví dụ: Gọi tới phương thức setRowCountToZero trong ProductTbModel
+                if ((jTable2.getModel() instanceof ProductTbModel)){
+                    ProductTbModel productModel = (ProductTbModel) jTable2.getModel();
+                    productModel.setRowCountToZero();
+                }
+                // Cập nhật giá trị trước đó với giá trị hiện tại
+                previousProductIDValue = ProductIDtext;
+            }
+
             if (!ProductIDtext.trim().isEmpty()) {
                 int ProductID = Integer.parseInt(ProductIDtext);
+                
                 products = productDao.get(ProductID);
                 ProductTbModel model = new ProductTbModel(products);
-
                 jTable2.setModel(model);
-                model.clearProductImages();
+                model.setRowCountToZero();
             } if (ProductIDtext.trim().isEmpty()) {
                 products = productDao.getALL();
                 ProductTbModel model = new ProductTbModel(products);
@@ -501,6 +537,30 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private void btnADDproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnADDproductActionPerformed
+
+    private void btnViewProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnViewProductActionPerformed
+        // Get the selected row index from jTable2
+        int selectedRow = jTable2.getSelectedRow();
+        int selectedColumn = ProductTbModel.Object_COL;
+        // Check if any row is selected
+        if (selectedRow >= 0) {
+
+            Product tmProduct = (Product) jTable2.getModel().getValueAt(selectedRow, selectedColumn);
+            int productId = tmProduct.getProductID();
+            System.out.println(productDao.get(productId));
+            // Now you have the productID, you can fetch the corresponding Product object
+            try {
+                // Open the ViewProduct dialog and pass the Product object to it
+                ViewImage viewProductDialog = new ViewImage(this, true, tmProduct);
+                viewProductDialog.setVisible(true);
+            } catch (Exception ex) {
+                ex.printStackTrace(); // Handle the exception appropriately
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row in jTable2.", "No Row Selected", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnViewProductActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -552,6 +612,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JButton btnSearchProduct;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdateProduct;
+    private javax.swing.JButton btnViewProduct;
     private javax.swing.JTextField employeeIDtextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
