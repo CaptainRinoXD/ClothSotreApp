@@ -557,7 +557,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 ex.printStackTrace(); // Handle the exception appropriately
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a row in jTable2.", "No Row Selected", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a row!", "No Row Selected", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnViewProductActionPerformed
 

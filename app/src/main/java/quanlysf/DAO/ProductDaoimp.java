@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.io.*;
 
@@ -60,9 +61,47 @@ public class ProductDaoimp implements ProductDao {
     }
 
     @Override
-    public List<Product> getALL() throws SQLException {
-         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public List<Product> getALL() throws SQLException, FileNotFoundException, IOException {
+        DatabaseConnector dbConnector;
+        dbConnector = new DatabaseConnector();
+        Connection connection = dbConnector.connect();
+
+        List<Product> products = new ArrayList<>();
+        String sql = "Select * from product";
+
+        Statement myStmt = connection.createStatement();
+        ResultSet rs = myStmt.executeQuery(sql);
+
+        while(rs.next()) {
+            int OProductID = rs.getInt("ProductID");
+            String TypeID = rs.getString("TypeID");
+            String ProductName = rs.getString("ProductName");
+            int ProductQuanity = rs.getInt("ProductQuanity");
+            InputStream imageStream = rs.getBinaryStream("ProductImage");
+            
+            // Lưu ảnh lấy được sang file tạm thời
+
+            File imageFile = null;
+            if (imageStream != null) {
+                // Lưu ảnh lấy được sang file tạm thời
+                imageFile = new File("TempImage.jpg");
+                try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = imageStream.read(buffer)) != -1) {
+                        fos.write(buffer, 0, bytesRead);
+                    }
+                }
+            }
+
+            int ImpPrice = rs.getInt("ImpPrice");
+            int ExpPrice = rs.getInt("ExpPrice");
+            java.sql.Date impDate = rs.getDate("ImpDate");
+
+            Product product = new Product(OProductID, TypeID, ProductName, ProductQuanity, imageFile,ImpPrice,ExpPrice,impDate);
+            products.add(product);
+        }
+        return products;
     }
 
     @Override
