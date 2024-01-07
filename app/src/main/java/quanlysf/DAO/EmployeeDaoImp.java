@@ -1,5 +1,7 @@
 package quanlysf.DAO;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +63,10 @@ public class EmployeeDaoImp implements EmployeeDAO {
             Employee employee = new Employee(id, name, age, salary, email, department);
 			
 			employees.add(employee);
+            
         }
         return employees;
+        
     }
 
     @Override
@@ -129,6 +133,18 @@ public class EmployeeDaoImp implements EmployeeDAO {
         int resullt = myStmt.executeUpdate();
         dbConnector.closeConnection();
         return resullt;
+    }
+
+    @Override
+    public List<Employee> getStr(String i) throws SQLException, FileNotFoundException, IOException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getStr'");
+    }
+
+    @Override
+    public int deleteStr(String i) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteStr'");
     }
 
     

@@ -153,5 +153,17 @@ public class ProductDaoimp implements ProductDao {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
+
+    @Override
+    public List<Product> getStr(String i) throws SQLException, FileNotFoundException, IOException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getStr'");
+    }
+
+    @Override
+    public int deleteStr(String i) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteStr'");
+    }
     
 }

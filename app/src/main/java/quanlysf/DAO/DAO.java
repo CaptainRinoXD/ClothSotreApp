@@ -17,6 +17,7 @@ import quanlysf.DAO.*;
  */
 public interface DAO<T> {
     List<T>get(int i) throws SQLException, FileNotFoundException, IOException;
+    List<T>getStr(String i) throws SQLException, FileNotFoundException, IOException;
 
     List<T> getALL() throws SQLException, FileNotFoundException, IOException;
 
@@ -27,6 +28,7 @@ public interface DAO<T> {
     int update (T t) throws SQLException;
 
     int delete (int i) throws SQLException;
+    int deleteStr (String i) throws SQLException;
     
 }
 

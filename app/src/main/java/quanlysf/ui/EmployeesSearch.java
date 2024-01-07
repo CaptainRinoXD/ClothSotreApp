@@ -20,6 +20,7 @@ import java.util.List;
 public class EmployeesSearch extends javax.swing.JFrame {
     private EmployeeDAO employeeDAO;
     private ProductDao productDao;
+    private ProductTypeDao productTypeDao;
     private String previousProductIDValue = "";
 
     /**
@@ -32,6 +33,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         try {
             employeeDAO = new EmployeeDaoImp();
             productDao = new ProductDaoimp();
+            productTypeDao = new ProductTypeImp();
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this,"Error" + exc , "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -46,6 +48,20 @@ public class EmployeesSearch extends javax.swing.JFrame {
             //create table and update table
             EmployeeTbModel model = new EmployeeTbModel(employees);
             jTable1.setModel(model);
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(this, "Error" + exc,"Error" , JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+        public void refreshProductTypeView() {
+        // TODO
+        try {
+            List<ProductType> productTypes = null;
+            productTypes = productTypeDao.getALL();
+
+            //create table and update table
+            ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
+            jTable3.setModel(model);
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this, "Error" + exc,"Error" , JOptionPane.ERROR_MESSAGE);
         }
@@ -74,6 +90,14 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         ProductTypesPanel = new javax.swing.JPanel();
+        btnSearchProductType = new javax.swing.JButton();
+        TypeIDField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        btnDeleteProductType = new javax.swing.JButton();
+        btnUpdateProductType = new javax.swing.JButton();
+        btnADDproductType = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         EmployeePanel = new javax.swing.JPanel();
         btnSearch = new javax.swing.JButton();
         employeeIDtextField = new javax.swing.JTextField();
@@ -126,7 +150,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel3.setText("Enter Employee ID");
+        jLabel3.setText("Enter Product ID");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         btnDeleteProduct.setBackground(new java.awt.Color(236, 232, 255));
@@ -226,15 +250,96 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
         jTabbedPane.addTab("Products", ProductPanel);
 
+        btnSearchProductType.setText("Search");
+        btnSearchProductType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchProductTypeActionPerformed(evt);
+            }
+        });
+
+        TypeIDField.setToolTipText("");
+        TypeIDField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TypeIDFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel4.setText("Enter Type ID");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        btnDeleteProductType.setBackground(new java.awt.Color(236, 232, 255));
+        btnDeleteProductType.setText("Delete Product");
+        btnDeleteProductType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteProductTypeActionPerformed(evt);
+            }
+        });
+
+        btnUpdateProductType.setBackground(new java.awt.Color(236, 232, 255));
+        btnUpdateProductType.setText("Update Product");
+        btnUpdateProductType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateProductTypeActionPerformed(evt);
+            }
+        });
+
+        btnADDproductType.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDproductType.setText("Add Product");
+        btnADDproductType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDproductTypeActionPerformed(evt);
+            }
+        });
+
+        jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane3.setBorder(null);
+
+        jTable3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
         javax.swing.GroupLayout ProductTypesPanelLayout = new javax.swing.GroupLayout(ProductTypesPanel);
         ProductTypesPanel.setLayout(ProductTypesPanelLayout);
         ProductTypesPanelLayout.setHorizontalGroup(
             ProductTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 905, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
+            .addGroup(ProductTypesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnADDproductType, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpdateProductType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDeleteProductType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(TypeIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearchProductType, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         ProductTypesPanelLayout.setVerticalGroup(
             ProductTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+            .addGroup(ProductTypesPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ProductTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnADDproductType, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateProductType, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteProductType, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TypeIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(btnSearchProductType))
+                .addContainerGap())
         );
 
         jTabbedPane.addTab("Product Types", ProductTypesPanel);
@@ -307,9 +412,9 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(employeeIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,7 +548,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         if (row >= 0) {
         Employee selectedEmployee = (Employee) jTable1.getModel().getValueAt(row, objectColumnIndex);
             // Now 'selectedEmployee' contains the entire Employee object for the selected row.
-            System.out.println(selectedEmployee); // Just for testing, you can remove this line
+            System.out.println(selectedEmployee); 
 
             // Add your code to open the EmployeeAdd dialog with the selectedEmployee for updating
             // Example: 
@@ -535,7 +640,8 @@ public class EmployeesSearch extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateProductActionPerformed
 
     private void btnADDproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductActionPerformed
-        // TODO add your handling code here:
+        ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled,EmployeesSearch.this, productDao, null, false);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnADDproductActionPerformed
 
     private void btnViewProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnViewProductActionPerformed
@@ -560,6 +666,77 @@ public class EmployeesSearch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please select a row!", "No Row Selected", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnViewProductActionPerformed
+
+    private void btnSearchProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductTypeActionPerformed
+        try {
+            String TypeIdText = TypeIDField.getText();
+            List<ProductType> productTypes = null;
+            if (!TypeIdText.trim().isEmpty()) {
+                productTypes= productTypeDao.getStr(TypeIdText);
+                ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
+                jTable3.setModel(model);
+                // Now you can use the 'id' to search for the employee
+                
+            } if (TypeIdText.trim().isEmpty()) {
+                productTypes = productTypeDao.getALL();
+                ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
+                jTable3.setModel(model);
+                
+            } if (productTypes.isEmpty()) {
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "No employees found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSearchProductTypeActionPerformed
+
+    private void TypeIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TypeIDFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TypeIDFieldActionPerformed
+
+    private void btnDeleteProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductTypeActionPerformed
+        int objectColumnIndex = ProductTypeTbModel.Object_COL;
+        int row = jTable3.getSelectedRow();
+
+        if(row >=0) {
+            int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Delete this product type?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (respone != JOptionPane.YES_OPTION) {
+                return;
+            }
+            ProductType tmProductType = (ProductType) jTable3.getModel().getValueAt(row, objectColumnIndex);
+            try {
+                productTypeDao.deleteStr(tmProductType.getTypeID());
+            }  catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+
+            refreshProductTypeView();
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Product type delete succesfully.","Product type Deleted",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteProductTypeActionPerformed
+
+    private void btnUpdateProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProductTypeActionPerformed
+        int objectColumnIndex = ProductTypeTbModel.Object_COL;
+        int row = jTable3.getSelectedRow();
+
+        if (row >= 0) {
+            ProductType selectedProductType = (ProductType) jTable3.getModel().getValueAt(row, objectColumnIndex);
+            System.out.println(selectedProductType);
+
+            ProductTypeAdd dialog = new ProductTypeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productTypeDao, selectedProductType, true);
+            dialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an employee", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUpdateProductTypeActionPerformed
+
+    private void btnADDproductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductTypeActionPerformed
+        ProductTypeAdd dialog = new ProductTypeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productTypeDao, null, false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnADDproductTypeActionPerformed
 
 
     /**
@@ -604,24 +781,32 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JTextField ProductIDtextField;
     private javax.swing.JPanel ProductPanel;
     private javax.swing.JPanel ProductTypesPanel;
+    private javax.swing.JTextField TypeIDField;
     private javax.swing.JButton btnADD;
     private javax.swing.JButton btnADDproduct;
+    private javax.swing.JButton btnADDproductType;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteProduct;
+    private javax.swing.JButton btnDeleteProductType;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchProduct;
+    private javax.swing.JButton btnSearchProductType;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdateProduct;
+    private javax.swing.JButton btnUpdateProductType;
     private javax.swing.JButton btnViewProduct;
     private javax.swing.JTextField employeeIDtextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }
