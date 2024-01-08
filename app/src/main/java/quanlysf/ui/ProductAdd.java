@@ -4,15 +4,21 @@
  */
 package quanlysf.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Image;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import quanlysf.DAO.Product;
 import quanlysf.DAO.ProductDao;
@@ -30,6 +36,7 @@ public class ProductAdd extends javax.swing.JDialog {
     private EmployeesSearch employeesSearch;
     private Product previousProduct = null;
     private boolean updateMode = false;
+    private File ProductIamge = null;
     /**
      * Creates new form ProductAdd
      */
@@ -48,16 +55,36 @@ public class ProductAdd extends javax.swing.JDialog {
         previousProduct = thePreviousProduct;
         updateMode = theUpdateMode;
 
+        try {
+            productTypeDao.getAll_IDList();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         if (updateMode) {
+            jPanel1.removeAll();
             setTitle("Update Product");
             populateFormFields(thePreviousProduct);
+            
         } else {
             setTitle("Add Product");
         }
     }
 
-    private void populateFormFields(Product PreviousProductType) {
-        //TODO
+    private void populateFormFields(Product PreviousProduct) {
+        ProductTypeCbox.setSelectedItem(PreviousProduct.getTypeID());
+        jTextField1.setText(PreviousProduct.getProductName());
+        jTextField2.setText(String.valueOf(PreviousProduct.getProductQuanity()));
+        jTextField3.setText(String.valueOf(PreviousProduct.getImpPirce()));
+        jTextField4.setText(String.valueOf(PreviousProduct.getExpPirce()));
+        ProductIamge = PreviousProduct.getProductImage();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +110,7 @@ public class ProductAdd extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -116,6 +144,11 @@ public class ProductAdd extends javax.swing.JDialog {
         });
 
         btnAddImage.setText("Add Product Image");
+        btnAddImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddImageActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +182,13 @@ public class ProductAdd extends javax.swing.JDialog {
 
         jTextField5.setText("Adding System Date");
 
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,7 +202,8 @@ public class ProductAdd extends javax.swing.JDialog {
                             .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField2)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSave)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnCancel))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +257,9 @@ public class ProductAdd extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancel)
+                            .addComponent(btnSave)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -225,7 +268,7 @@ public class ProductAdd extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGetTypeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetTypeIDActionPerformed
-        // TODO add your handling code here:
+        // Gọi hàm getALL_IDlist, sử dụng result set và next() để add items vào trong combo box
         try {
             productTypeDao.getAll_IDList();
         } catch (FileNotFoundException e) {
@@ -247,9 +290,91 @@ public class ProductAdd extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void ProductTypeCboxActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_ProductTypeCboxActionPerformed
-        
-        
+        //System.out.println(ProductTypeCbox.getSelectedItem());
     }//GEN-LAST:event_ProductTypeCboxActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        //Lấy dữ liệu được chọn từ COMBO BOX productTypeCbox
+        String TypeID = (String) ProductTypeCbox.getSelectedItem();
+        String ProductName = jTextField1.getText();
+
+        String ProductQuanityText = jTextField2.getText();
+        int ProductQuanity = Integer.parseInt(ProductQuanityText);
+
+        String ImportPriceText = jTextField3.getText();
+        int ImportPrice = Integer.parseInt(ImportPriceText);
+
+        String ExportPriceText = jTextField4.getText();
+        int ExportPrice = Integer.parseInt(ExportPriceText);
+        
+        Product temProduct = null;
+
+        if (updateMode) {
+            temProduct = previousProduct;
+
+            previousProduct.setTypeID(TypeID);
+            previousProduct.setProductName(ProductName);
+            previousProduct.setProductImage(ProductIamge);
+            previousProduct.setProductQuanity(ProductQuanity);
+            previousProduct.setImpPirce(ImportPrice);
+            previousProduct.setExpPirce(ExportPrice);
+        } else {
+            temProduct = new Product(ProductQuanity, TypeID, ProductName, ProductQuanity, ProductIamge, ImportPrice, ExportPrice, null);
+        }
+
+        try {
+            if(updateMode) {
+                productDao.update(temProduct);
+            } else {
+                productDao.insert(temProduct);
+            }
+            setVisible(false);
+            dispose();
+
+            //refresh gui
+            employeesSearch.refreshProductView();
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(
+                employeesSearch, "Error saving product: " + exc.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImageActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image","jpg","png");
+        fileChooser.setFileFilter(imageFilter);
+
+        fileChooser.setMultiSelectionEnabled(false);
+
+        int x = fileChooser.showDialog(this, "Pick Image");
+        if (x == JFileChooser.APPROVE_OPTION) {
+            ProductIamge = fileChooser.getSelectedFile();
+        }
+        
+        ImageIcon icon = new ImageIcon(ProductIamge.toString());
+        Image image = icon.getImage();
+        Image scaledImage = image.getScaledInstance(jPanel1.getWidth(), jPanel1.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+    
+        // Create a JLabel and set the scaled image icon
+        JLabel imageLabel = new JLabel(scaledIcon);
+
+        // Set layout manager for imagePanel
+        jPanel1.setLayout(new BorderLayout());
+    
+        // Remove existing components from the imagePanel
+        jPanel1.removeAll();
+    
+        // Add the JLabel with the image icon to the imagePanel
+        jPanel1.add(imageLabel, BorderLayout.CENTER);
+    
+        // Refresh the imagePanel to reflect the changes
+        jPanel1.revalidate();
+        jPanel1.repaint();
+
+    }//GEN-LAST:event_btnAddImageActionPerformed
 
 
     class MyListRenderer extends JLabel implements ListCellRenderer {
@@ -304,10 +429,11 @@ public class ProductAdd extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JComboBox<String> ProductTypeCbox;
+   public static javax.swing.JComboBox<String> ProductTypeCbox;
     private javax.swing.JButton btnAddImage;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnGetTypeID;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

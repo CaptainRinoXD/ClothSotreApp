@@ -53,7 +53,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         }
     }
 
-        public void refreshProductTypeView() {
+    public void refreshProductTypeView() {
         // TODO
         try {
             List<ProductType> productTypes = null;
@@ -62,6 +62,20 @@ public class EmployeesSearch extends javax.swing.JFrame {
             //create table and update table
             ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
             jTable3.setModel(model);
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(this, "Error" + exc,"Error" , JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void refreshProductView() {
+        // TODO
+        try {
+            List<Product> products = null;
+            products = productDao.getALL();
+
+            //create table and update table
+            ProductTbModel model = new ProductTbModel(products);
+            jTable2.setModel(model);
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this, "Error" + exc,"Error" , JOptionPane.ERROR_MESSAGE);
         }
@@ -636,7 +650,19 @@ public class EmployeesSearch extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 
     private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProductActionPerformed
-        // TODO add your handling code here:
+        int objectColumnIndex = ProductTbModel.Object_COL;
+        int row = jTable2.getSelectedRow();
+
+        // Kiểm tra xem hàng đã được chọn chưa
+        if(row > 0) {
+            Product selectedProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
+            System.out.println(selectedProduct);
+
+            ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productDao, selectedProduct, true);
+            dialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an product", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnUpdateProductActionPerformed
 
     private void btnADDproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductActionPerformed

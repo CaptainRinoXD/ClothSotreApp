@@ -26,7 +26,7 @@ public interface DAO<T> {
 
     int insert(T t) throws SQLException, FileNotFoundException;
     
-    int update (T t) throws SQLException;
+    int update (T t) throws SQLException, FileNotFoundException;
 
     int delete (int i) throws SQLException;
     int deleteStr (String i) throws SQLException;

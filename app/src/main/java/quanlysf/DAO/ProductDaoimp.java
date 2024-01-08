@@ -128,7 +128,6 @@ public class ProductDaoimp implements ProductDao {
             myStmt.setBinaryStream(4, fis, (int) product.getProductImage().length());
         } else {
             myStmt.setNull(4, java.sql.Types.BLOB);
-
         }
         
         myStmt.setInt(5, product.getImpPirce());
@@ -143,9 +142,35 @@ public class ProductDaoimp implements ProductDao {
     }
 
     @Override
-    public int update(Product t) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public int update(Product product) throws SQLException, FileNotFoundException {
+       DatabaseConnector dbConnector = new DatabaseConnector();
+        Connection connection = dbConnector.connect();
+        String sql = "UPDATE product "
+        + "SET TypeID = ?, ProductName = ?, ProductQuanity = ?, ProductImage = ?, ImpPrice = ?, ExpPrice = ?, ImpDate = ? "
+        + "WHERE ProductID = ?";
+
+        PreparedStatement myStmt = connection.prepareStatement(sql);
+        myStmt.setString(1, product.getTypeID());
+        myStmt.setString(2, product.getProductName());
+        myStmt.setInt(3, product.getProductQuanity());
+
+        if(product.getProductImage() != null) {
+            FileInputStream fis = new FileInputStream(product.getProductImage());
+            myStmt.setBinaryStream(4, fis, (int) product.getProductImage().length());
+        } else {
+            myStmt.setNull(4, java.sql.Types.BLOB);
+        }
+        
+        myStmt.setInt(5, product.getImpPirce());
+        myStmt.setInt(6, product.getExpPirce());
+
+        java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+        myStmt.setDate(7, currentDate);
+        myStmt.setInt(8, product.getProductID());
+
+        int resullt = myStmt.executeUpdate();
+        dbConnector.closeConnection();
+        return resullt;
     }
 
     @Override
