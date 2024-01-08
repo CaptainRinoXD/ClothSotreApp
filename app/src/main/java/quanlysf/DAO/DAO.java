@@ -20,7 +20,8 @@ public interface DAO<T> {
     List<T>getStr(String i) throws SQLException, FileNotFoundException, IOException;
 
     List<T> getALL() throws SQLException, FileNotFoundException, IOException;
-
+    List<T> getAll_IDList() throws SQLException, FileNotFoundException, IOException;
+    
     int save(T t) throws SQLException;
 
     int insert(T t) throws SQLException, FileNotFoundException;

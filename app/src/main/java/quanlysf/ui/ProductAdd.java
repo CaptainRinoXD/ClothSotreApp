@@ -227,7 +227,7 @@ public class ProductAdd extends javax.swing.JDialog {
     private void btnGetTypeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetTypeIDActionPerformed
         // TODO add your handling code here:
         try {
-            productTypeDao.getALL();
+            productTypeDao.getAll_IDList();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -22,7 +22,7 @@ public class ProductTypeImp implements ProductTypeDao {
         DatabaseConnector dbConnector;
         dbConnector = new DatabaseConnector();
         Connection connection = dbConnector.connect();
-        ProductAdd.ProductTypeCbox.removeAllItems();
+
         List<ProductType> productTypes = new ArrayList<>();
         String sql = "SELECT * FROM product_type";
         Statement myStmt = connection.createStatement();
@@ -31,16 +31,35 @@ public class ProductTypeImp implements ProductTypeDao {
         while(rs.next()) {
             String OTypeID = rs.getString("TypeID");
             String TypeName = rs.getString("TypeName");
-
             ProductType productType = new ProductType(OTypeID, TypeName);
-
-            Object[] itemData = new Object[] {OTypeID};
-            ProductAdd.ProductTypeCbox.addItem(OTypeID);
             productTypes.add(productType);
 
         }
         return productTypes;
     }
+
+    @Override
+	public List<ProductType> getAll_IDList() throws SQLException, FileNotFoundException, IOException {
+		DatabaseConnector dbConnector;
+        dbConnector = new DatabaseConnector();
+        Connection connection = dbConnector.connect();
+
+        ProductAdd.ProductTypeCbox.removeAllItems();
+
+        List<ProductType> productTypes = new ArrayList<>();
+        String sql = "SELECT * FROM product_type";
+        Statement myStmt = connection.createStatement();
+        ResultSet rs = myStmt.executeQuery(sql);
+
+        while(rs.next()) {
+            String OTypeID = rs.getString("TypeID");
+            String TypeName = rs.getString("TypeName");
+            ProductAdd.ProductTypeCbox.addItem(OTypeID);
+            ProductType productType = new ProductType(OTypeID, TypeName);
+            productTypes.add(productType);
+        }
+        return productTypes;
+	}
 
 
     @Override
@@ -131,4 +150,6 @@ public class ProductTypeImp implements ProductTypeDao {
         dbConnector.closeConnection();
         return resullt;
     }
+
+	
 }
