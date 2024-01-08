@@ -122,6 +122,14 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         CostumersPanel = new javax.swing.JPanel();
+        btnSearchCustomer = new javax.swing.JButton();
+        CustomerIDTextField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        btnDeleteCustomer = new javax.swing.JButton();
+        btnUpdateCustomer = new javax.swing.JButton();
+        btnADDcustomer = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
         BillPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -454,18 +462,99 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
         jTabbedPane.addTab("Employees", EmployeePanel);
 
+        btnSearchCustomer.setText("Search");
+        btnSearchCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchCustomerActionPerformed(evt);
+            }
+        });
+
+        CustomerIDTextField.setToolTipText("");
+        CustomerIDTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerIDTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel5.setText("Enter Customer ID");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        btnDeleteCustomer.setBackground(new java.awt.Color(236, 232, 255));
+        btnDeleteCustomer.setText("Delete Customer");
+        btnDeleteCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCustomerActionPerformed(evt);
+            }
+        });
+
+        btnUpdateCustomer.setBackground(new java.awt.Color(236, 232, 255));
+        btnUpdateCustomer.setText("Update Costumer");
+        btnUpdateCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateCustomerActionPerformed(evt);
+            }
+        });
+
+        btnADDcustomer.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDcustomer.setText("Add Customer");
+        btnADDcustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDcustomerActionPerformed(evt);
+            }
+        });
+
+        jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane4.setBorder(null);
+
+        jTable4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
+
         javax.swing.GroupLayout CostumersPanelLayout = new javax.swing.GroupLayout(CostumersPanel);
         CostumersPanel.setLayout(CostumersPanelLayout);
         CostumersPanelLayout.setHorizontalGroup(
             CostumersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 905, Short.MAX_VALUE)
+            .addGroup(CostumersPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnADDcustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpdateCustomer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDeleteCustomer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(CustomerIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jScrollPane4)
         );
         CostumersPanelLayout.setVerticalGroup(
             CostumersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+            .addGroup(CostumersPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(CostumersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnADDcustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CustomerIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(btnSearchCustomer))
+                .addContainerGap())
         );
 
-        jTabbedPane.addTab("Costumers", CostumersPanel);
+        jTabbedPane.addTab("Customers", CostumersPanel);
 
         javax.swing.GroupLayout BillPanelLayout = new javax.swing.GroupLayout(BillPanel);
         BillPanel.setLayout(BillPanelLayout);
@@ -764,6 +853,26 @@ public class EmployeesSearch extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_btnADDproductTypeActionPerformed
 
+    private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchCustomerActionPerformed
+
+    private void CustomerIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerIDTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CustomerIDTextFieldActionPerformed
+
+    private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteCustomerActionPerformed
+
+    private void btnUpdateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCustomerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateCustomerActionPerformed
+
+    private void btnADDcustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnADDcustomerActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -803,21 +912,26 @@ public class EmployeesSearch extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BillPanel;
     private javax.swing.JPanel CostumersPanel;
+    private javax.swing.JTextField CustomerIDTextField;
     private javax.swing.JPanel EmployeePanel;
     private javax.swing.JTextField ProductIDtextField;
     private javax.swing.JPanel ProductPanel;
     private javax.swing.JPanel ProductTypesPanel;
     private javax.swing.JTextField TypeIDField;
     private javax.swing.JButton btnADD;
+    private javax.swing.JButton btnADDcustomer;
     private javax.swing.JButton btnADDproduct;
     private javax.swing.JButton btnADDproductType;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteCustomer;
     private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnDeleteProductType;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JButton btnSearchProduct;
     private javax.swing.JButton btnSearchProductType;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUpdateCustomer;
     private javax.swing.JButton btnUpdateProduct;
     private javax.swing.JButton btnUpdateProductType;
     private javax.swing.JButton btnViewProduct;
@@ -826,13 +940,16 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 }
