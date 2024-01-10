@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class EmployeesSearch extends javax.swing.JFrame {
     private EmployeeDAO employeeDAO;
+    private CostumerDAO costumerDAO;
     private ProductDao productDao;
     private ProductTypeDao productTypeDao;
     private String previousProductIDValue = "";
@@ -32,6 +33,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         try {
             employeeDAO = new EmployeeDaoImp();
+            costumerDAO = new CostumerDAOimp();
             productDao = new ProductDaoimp();
             productTypeDao = new ProductTypeImp();
         } catch (Exception exc) {
@@ -854,7 +856,28 @@ public class EmployeesSearch extends javax.swing.JFrame {
     }//GEN-LAST:event_btnADDproductTypeActionPerformed
 
     private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
-        // TODO add your handling code here:
+        try {
+            String CIDText = CustomerIDTextField.getText();
+            List<Costumer> costumers = null;
+            if (!CIDText.trim().isEmpty() ) {
+                int CID = Integer.parseInt(CIDText);
+                costumers = costumerDAO.get(CID);
+                CostumerTbModel model = new CostumerTbModel(costumers);
+                jTable4.setModel(model);
+
+            }if (CIDText.trim().isEmpty()) {
+                costumers = costumerDAO.getALL();
+                CostumerTbModel model = new CostumerTbModel(costumers);
+                jTable4.setModel(model);
+                
+            }if (costumers.isEmpty()){
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "No costumers found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSearchCustomerActionPerformed
 
     private void CustomerIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerIDTextFieldActionPerformed
