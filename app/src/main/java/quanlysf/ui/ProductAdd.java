@@ -85,6 +85,33 @@ public class ProductAdd extends javax.swing.JDialog {
         jTextField3.setText(String.valueOf(PreviousProduct.getImpPirce()));
         jTextField4.setText(String.valueOf(PreviousProduct.getExpPirce()));
         ProductIamge = PreviousProduct.getProductImage();
+
+        if (ProductIamge == null) {
+            
+        } else {
+            // Để lấy được ảnh thì phải gọi hàm get 1 lần nữa ở trong file java
+            // Thực hiện lấy ảnh từ ProductImage và hiện lại lên Jpanel1
+            ImageIcon icon = new ImageIcon(ProductIamge.toString());
+            Image image = icon.getImage();
+            Image scaledImage = image.getScaledInstance(jPanel1.getWidth(), jPanel1.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        
+            // Create a JLabel and set the scaled image icon
+            JLabel imageLabel = new JLabel(scaledIcon);
+
+            // Set layout manager for imagePanel
+            jPanel1.setLayout(new BorderLayout());
+        
+            // Remove existing components from the imagePanel
+            jPanel1.removeAll();
+        
+            // Add the JLabel with the image icon to the imagePanel
+            jPanel1.add(imageLabel, BorderLayout.CENTER);
+        
+            // Refresh the imagePanel to reflect the changes
+            jPanel1.revalidate();
+            jPanel1.repaint();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

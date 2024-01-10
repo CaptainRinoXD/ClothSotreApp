@@ -189,7 +189,18 @@ public class EmployeesSearch extends javax.swing.JFrame {
         btnUpdateProduct.setText("Update Product");
         btnUpdateProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateProductActionPerformed(evt);
+                try {
+                    btnUpdateProductActionPerformed(evt);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -740,13 +751,14 @@ public class EmployeesSearch extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 
-    private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProductActionPerformed
+    private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnUpdateProductActionPerformed
         int objectColumnIndex = ProductTbModel.Object_COL;
         int row = jTable2.getSelectedRow();
 
         // Kiểm tra xem hàng đã được chọn chưa
         if(row > 0) {
             Product selectedProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
+            productDao.get(selectedProduct.getProductID());
             System.out.println(selectedProduct);
 
             ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productDao, selectedProduct, true);

@@ -40,9 +40,7 @@ public class CostumerTbModel extends AbstractTableModel{
 
        switch (columnIndex) {
         case CID_COL:
-            
             return tempCostumer.getCID();
-       
         case Cname_COL:
             return tempCostumer.getCname();
         case Caddress_COL:
