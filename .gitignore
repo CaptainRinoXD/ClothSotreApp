@@ -1,5 +1,8 @@
 *.class
 *.lst
+*.jpg
+/app/*.jpg
 /app/*.class
 /app/*.lst
 /app/src/main/java/quanlysf/function/
+
