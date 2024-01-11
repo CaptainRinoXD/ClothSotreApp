@@ -748,7 +748,25 @@ public class EmployeesSearch extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductIDtextFieldActionPerformed
 
     private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
-        // TODO add your handling code here:
+        int objectColumnIndex = ProductTbModel.Object_COL;
+        int row = jTable2.getSelectedRow();
+
+        if(row >=0) {
+            int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Delete this product type?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (respone != JOptionPane.YES_OPTION) {
+                return;
+            }
+            Product tmProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
+            try {
+                productDao.delete(tmProduct.getProductID());
+            }  catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+
+            refreshProductView();
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Product delete succesfully.","Product Deleted",JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 
     private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnUpdateProductActionPerformed

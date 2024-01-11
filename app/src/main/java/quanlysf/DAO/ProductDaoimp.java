@@ -174,9 +174,17 @@ public class ProductDaoimp implements ProductDao {
     }
 
     @Override
-    public int delete(int i) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public int delete(int ProductID) throws SQLException {
+        PreparedStatement myStmt = null;
+        DatabaseConnector dbConnector = new DatabaseConnector();
+        Connection connection = dbConnector.connect();
+
+        String sql = "Delete from product where ProductID = ? ";
+        myStmt = connection.prepareStatement(sql);
+        myStmt.setInt(1, ProductID);
+        int resullt = myStmt.executeUpdate();
+        dbConnector.closeConnection();
+        return resullt;
     }
 
     @Override
