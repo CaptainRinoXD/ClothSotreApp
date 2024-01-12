@@ -27,7 +27,7 @@ public class CostumerDAOimp implements CostumerDAO{
             int OCID = rs.getInt("CID");
             String Cname = rs.getString("Cname");
             String Caddress = rs.getString("Caddress");
-            String Cnumber = rs.getString("Cnumber");
+            int Cnumber = rs.getInt("Cnumber");
 
             Costumer costumer = new Costumer(OCID, Cname, Caddress, Cnumber);
             costumers.add(costumer);
@@ -50,7 +50,7 @@ public class CostumerDAOimp implements CostumerDAO{
             int CID = Rs.getInt("CID");
             String Cname = Rs.getString("Cname");
             String Caddress = Rs.getString("Caddress");
-            String Cnumber = Rs.getString("Cnumber");
+            int Cnumber = Rs.getInt("Cnumber");
 
             Costumer costumer = new Costumer(CID, Cname, Caddress, Cnumber);
 
@@ -76,7 +76,7 @@ public class CostumerDAOimp implements CostumerDAO{
         PreparedStatement myStmt = connection.prepareStatement(sql);
         myStmt.setString(1, costumer.getCname());
         myStmt.setString(2, costumer.getCaddress());
-        myStmt.setString(3, costumer.getCnumber());
+        myStmt.setInt(3, costumer.getCnumber());
 
         int resullt = myStmt.executeUpdate();
         dbConnector.closeConnection();
@@ -96,8 +96,8 @@ public class CostumerDAOimp implements CostumerDAO{
 
         myStmt.setString(1, costumer.getCname());
         myStmt.setString(2, costumer.getCaddress());
-        myStmt.setString(3, costumer.getCnumber());
-        //myStmt.setInt(4, costumer.getCID());
+        myStmt.setInt(3, costumer.getCnumber());
+        myStmt.setInt(4, costumer.getCID());
 
         int result = myStmt.executeUpdate();
         dbConnector.closeConnection();

@@ -39,15 +39,15 @@ public class Costumer {
         this.Caddress = Caddress;
     }
 
-    public String getCnumber() {
+    public int getCnumber() {
         return Cnumber;
     }
 
-    public void setCnumber(String Cnumber) {
+    public void setCnumber(int Cnumber) {
         this.Cnumber = Cnumber;
     }
 
-    public Costumer(int CID, String Cname, String Caddress, String Cnumber) {
+    public Costumer(int CID, String Cname, String Caddress, int Cnumber) {
         this.CID = CID;
         this.Cname = Cname;
         this.Caddress = Caddress;
@@ -56,6 +56,6 @@ public class Costumer {
     private int CID;
     private String Cname;
     private String Caddress;
-    private String Cnumber;
+    private int Cnumber;
             
 }
