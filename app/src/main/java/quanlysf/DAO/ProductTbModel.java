@@ -2,7 +2,7 @@ package quanlysf.DAO;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 public class ProductTbModel extends AbstractTableModel {
