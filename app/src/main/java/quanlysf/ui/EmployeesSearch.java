@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package quanlysf.ui;
+import quanlysf.Bill_Feature.AutoGenerateID;
 import quanlysf.DAO.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import java.beans.Customizer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,6 +25,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private ProductDao productDao;
     private ProductTypeDao productTypeDao;
     private String previousProductIDValue = "";
+    private AutoGenerateID autoGenerateID;
 
     /**
      * Creates new form EmployeesSearch
@@ -36,6 +39,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
             costumerDAO = new CostumerDAOimp();
             productDao = new ProductDaoimp();
             productTypeDao = new ProductTypeImp();
+            autoGenerateID = new AutoGenerateID();
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this,"Error" + exc , "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -149,15 +153,44 @@ public class EmployeesSearch extends javax.swing.JFrame {
         BillPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CustomerID_ComboBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        EmployeeID_ComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        Bill_ID_TextFiled = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        EmployeeName_TextField = new javax.swing.JTextField();
+        CustomerName_TextField = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        CustomerPhone_TextField = new javax.swing.JTextField();
+        CustomerAddress_TextField = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        btnGETid_Button = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
+        ProductID_ComboBox = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        ProductName_TextField = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        ProductPrice_TextField = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        Quantity_TextField = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        Total_TextField = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        btnADDcustomer1 = new javax.swing.JButton();
+        btnADDcustomer2 = new javax.swing.JButton();
+        btnADDcustomer3 = new javax.swing.JButton();
+        btnADDcustomer4 = new javax.swing.JButton();
+        btnADDcustomer6 = new javax.swing.JButton();
+        HelloLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee");
@@ -177,12 +210,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         btnSearchProduct.setText("Search");
         btnSearchProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnSearchProductActionPerformed(evt);
-                } catch (SQLException | IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                btnSearchProductActionPerformed(evt);
             }
         });
 
@@ -268,7 +296,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addComponent(btnDeleteProduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnViewProduct)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ProductIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,7 +307,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         ProductPanelLayout.setVerticalGroup(
             ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProductPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADDproduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,7 +391,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addComponent(btnUpdateProductType)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDeleteProductType)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(TypeIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,7 +402,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         ProductTypesPanelLayout.setVerticalGroup(
             ProductTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProductTypesPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ProductTypesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADDproductType, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,7 +484,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(employeeIDtextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -468,7 +496,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         EmployeePanelLayout.setVerticalGroup(
             EmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EmployeePanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(EmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -552,7 +580,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addComponent(btnUpdateCustomer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDeleteCustomer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(CustomerIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -564,7 +592,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         CostumersPanelLayout.setVerticalGroup(
             CostumersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CostumersPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CostumersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADDcustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -583,8 +611,20 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel6.setText("Customer ID");
 
+        CustomerID_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerID_ComboBoxActionPerformed(evt);
+            }
+        });
+
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel7.setText("Employee ID");
+
+        EmployeeID_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmployeeID_ComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel8.setText("Export Date");
@@ -599,33 +639,84 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel9.setText("Bill ID");
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel10.setText("Employee Name");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel11.setText("Customer Name");
+
+        EmployeeName_TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmployeeName_TextFieldActionPerformed(evt);
+            }
+        });
+
+        CustomerName_TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerName_TextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel12.setText("Customer Information");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel13.setText("Phone");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel14.setText("Address");
+
+        btnGETid_Button.setText("Get");
+        btnGETid_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGETid_ButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel9)
-                        .addGap(38, 38, 38)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(104, 104, 104)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CustomerID_ComboBox, 0, 164, Short.MAX_VALUE)
+                    .addComponent(EmployeeID_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Bill_ID_TextFiled))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGETid_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CustomerName_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EmployeeName_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(CustomerAddress_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(CustomerPhone_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,21 +724,115 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Bill_ID_TextFiled, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(btnGETid_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(EmployeeID_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(EmployeeName_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CustomerPhone_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CustomerID_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel11)
+                    .addComponent(CustomerName_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CustomerAddress_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(jTable5);
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel15.setText("Product ID");
+
+        ProductID_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductID_ComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel16.setText("Product Name");
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel17.setText("Product Price");
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setText("Detail Bill Information");
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel19.setText("Quantity");
+
+        Quantity_TextField.setText("0");
+        Quantity_TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Quantity_TextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel20.setText("Total Price");
+
+        jButton2.setText("Add");
+
+        btnADDcustomer1.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDcustomer1.setText("Save Bill");
+        btnADDcustomer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDcustomer1ActionPerformed(evt);
+            }
+        });
+
+        btnADDcustomer2.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDcustomer2.setText("Delete Product");
+        btnADDcustomer2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDcustomer2ActionPerformed(evt);
+            }
+        });
+
+        btnADDcustomer3.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDcustomer3.setText("Delete Bill");
+        btnADDcustomer3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDcustomer3ActionPerformed(evt);
+            }
+        });
+
+        btnADDcustomer4.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDcustomer4.setText("Get Bill");
+        btnADDcustomer4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDcustomer4ActionPerformed(evt);
+            }
+        });
+
+        btnADDcustomer6.setBackground(new java.awt.Color(236, 232, 255));
+        btnADDcustomer6.setText("Search");
+        btnADDcustomer6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnADDcustomer6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -655,15 +840,97 @@ public class EmployeesSearch extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5)
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Quantity_TextField)
+                            .addComponent(ProductID_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ProductPrice_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ProductName_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(108, 108, 108)
+                                .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel20)
+                                .addGap(87, 87, 87))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(btnADDcustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnADDcustomer2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnADDcustomer3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnADDcustomer4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnADDcustomer6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(ProductID_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(Quantity_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(ProductName_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(ProductPrice_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnADDcustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnADDcustomer2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnADDcustomer3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnADDcustomer4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnADDcustomer6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout BillPanelLayout = new javax.swing.GroupLayout(BillPanel);
@@ -672,30 +939,32 @@ public class EmployeesSearch extends javax.swing.JFrame {
             BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BillPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         BillPanelLayout.setVerticalGroup(
             BillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BillPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane.addTab("     Bill     ", BillPanel);
+        jTabbedPane.addTab("  Detail Bill  ", BillPanel);
+
+        HelloLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlysf/Bill_Feature/Label_HELLO.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel2)
+                .addContainerGap()
+                .addComponent(HelloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -704,9 +973,15 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(HelloLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(26, 26, 26)))
                 .addComponent(jTabbedPane))
         );
 
@@ -724,43 +999,238 @@ public class EmployeesSearch extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void employeeIDtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeIDtextFieldActionPerformed
+    private void btnADDcustomer6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_employeeIDtextFieldActionPerformed
+    }//GEN-LAST:event_btnADDcustomer6ActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+    private void btnADDcustomer4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnADDcustomer4ActionPerformed
+
+    private void btnADDcustomer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnADDcustomer3ActionPerformed
+
+    private void btnADDcustomer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnADDcustomer2ActionPerformed
+
+    private void btnADDcustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnADDcustomer1ActionPerformed
+
+    private void Quantity_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Quantity_TextFieldActionPerformed
+        ProductID_ComboBoxActionPerformed(evt);
+    }//GEN-LAST:event_Quantity_TextFieldActionPerformed
+
+    private void ProductID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductID_ComboBoxActionPerformed
+        ProductID_ComboBox.setEditable(true);
+        String ProductID_text = String.valueOf(ProductID_ComboBox.getSelectedItem());
+        
+
+        if (!ProductID_text.isEmpty() && ProductID_text != null) {
+            try {
+                int ProductID = Integer.parseInt(ProductID_text);
+                List<Product> productList = productDao.get(ProductID);
+                if (!productList.isEmpty()) {
+                    Product products = productList.get(0);
+                    ProductName_TextField.setText(products.getProductName());
+                    ProductPrice_TextField.setText(String.valueOf(products.getExpPirce()));
+                    calculateTotalPrice(products);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No product found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException | SQLException | IOException e) {
+                // Handle exceptions (e.g., parsing error, SQL error)
+                e.printStackTrace();
+                // You might want to show an error message to the user
+                //*** ERROR
+                //JOptionPane.showMessageDialog(this, "Error retrieving product details", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ProductID_ComboBoxActionPerformed
+
+    private void btnGETid_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGETid_ButtonActionPerformed
         try {
-            String idText = employeeIDtextField.getText();
-            List<Employee> employees = null;
-            if (!idText.trim().isEmpty()) {
-                int id = Integer.parseInt(idText);
-                employees= employeeDAO.get(id);
-                EmployeeTbModel model = new EmployeeTbModel(employees);
-                jTable1.setModel(model);
-                // Now you can use the 'id' to search for the employee
-                
-            } if (idText.trim().isEmpty()) {
-                employees = employeeDAO.getALL();
-                EmployeeTbModel model = new EmployeeTbModel(employees);
-                jTable1.setModel(model);
-                
-            } if (employees.isEmpty()) {
-                JOptionPane.showMessageDialog(EmployeesSearch.this, "No employees found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
+            productDao.getAll_IDList();
+            employeeDAO.getAll_IDList();
+            costumerDAO.getAll_IDList();
+            
+        } catch (SQLException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnGETid_ButtonActionPerformed
+
+    private void CustomerName_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerName_TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CustomerName_TextFieldActionPerformed
+
+    private void EmployeeName_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeName_TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmployeeName_TextFieldActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void EmployeeID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeID_ComboBoxActionPerformed
+        String Bill_ID;
+        try {
+            Bill_ID = AutoGenerateID.generateUniqueBillID();
+            Bill_ID_TextFiled.setText(Bill_ID);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        EmployeeID_ComboBox.setEditable(true);
+        String EmIDtext = (String) EmployeeID_ComboBox.getSelectedItem();
+
+        // Check if a selection is made
+        if (EmIDtext != null && !EmIDtext.isEmpty()) {
+            try {
+                // Parse the selected employee ID
+                int EmID = Integer.parseInt(EmIDtext);
+
+                // Query the database to get the employee details
+                List<Employee> employees = employeeDAO.get(EmID);
+
+                // Check if there is a result in the list
+                if (!employees.isEmpty()) {
+                    // Get the first employee from the list (assuming only one employee is returned)
+                    Employee employee = employees.get(0);
+
+                    // Set the employee name in the EmployeeName_TextField
+                    EmployeeName_TextField.setText(employee.getName());
+                } else {
+                    // Handle the case where no employee is found for the given ID
+                    JOptionPane.showMessageDialog(this, "No employee found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException | SQLException | IOException e) {
+                // Handle exceptions (e.g., parsing error, SQL error)
+                e.printStackTrace();
+                // You might want to show an error message to the user
+                JOptionPane.showMessageDialog(this, "Error retrieving employee details", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_EmployeeID_ComboBoxActionPerformed
+
+    private void CustomerID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerID_ComboBoxActionPerformed
+        String Bill_ID;
+        try {
+            Bill_ID = AutoGenerateID.generateUniqueBillID();
+            Bill_ID_TextFiled.setText(Bill_ID);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        CustomerID_ComboBox.setEditable(true);
+        String CID_text = String.valueOf(CustomerID_ComboBox.getSelectedItem());
+
+        if (CID_text != null && !CID_text.isEmpty()) {
+            try {
+                int CID = Integer.parseInt(CID_text);
+                List<Costumer> costumerList = costumerDAO.get(CID);
+
+                if (!costumerList.isEmpty()) {
+                    Costumer costumer = costumerList.get(0);
+                    // Chỉ có thể set được khi chọn dữ liệu nào để lấy trong list
+                    CustomerName_TextField.setText(costumer.getCname());
+                    CustomerAddress_TextField.setText(costumer.getCaddress());
+                    CustomerPhone_TextField.setText(String.valueOf(costumer.getCnumber()));
+                } else {
+                    JOptionPane.showMessageDialog(this, "No customer found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException | SQLException | IOException e) {
+                // Handle exceptions (e.g., parsing error, SQL error)
+                e.printStackTrace();
+                // You might want to show an error message to the user
+                JOptionPane.showMessageDialog(this, "Error retrieving customer details", "Error", JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(this, e, CID_text, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_CustomerID_ComboBoxActionPerformed
+
+    private void btnADDcustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomerActionPerformed
+        CustomerAdd dialog = new CustomerAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, costumerDAO, null, false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnADDcustomerActionPerformed
+
+    private void btnUpdateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCustomerActionPerformed
+        int objectColumnIndex = CostumerTbModel.OBJECT_COL;
+        int row = jTable4.getSelectedRow();
+
+        if (row >= 0) {
+            Costumer temCostumer = (Costumer) jTable4.getModel().getValueAt(row, objectColumnIndex);
+            System.out.println(temCostumer);
+
+            CustomerAdd dialog = new CustomerAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, costumerDAO, temCostumer, true);
+            dialog.setVisible(true);
+
+            refreshCostumerView();
+        } else {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Customer delete succesfully.","Customer Deleted",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUpdateCustomerActionPerformed
+
+    private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
+        int objectColumnIndex = CostumerTbModel.OBJECT_COL;
+        int row = jTable4.getSelectedRow();
+
+        if(row >=0) {
+            int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Delete this customer?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (respone != JOptionPane.YES_OPTION) {
+                return;
+            }
+            Costumer tmCostumer = (Costumer) jTable4.getModel().getValueAt(row, objectColumnIndex);
+            try {
+                costumerDAO.delete(tmCostumer.getCID());
+            }  catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            refreshCostumerView();
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Customer delete succesfully.","Customer Deleted",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteCustomerActionPerformed
+
+    private void CustomerIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerIDTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CustomerIDTextFieldActionPerformed
+
+    private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
+        try {
+            String CIDText = CustomerIDTextField.getText();
+            List<Costumer> costumers = null;
+            if (!CIDText.trim().isEmpty() ) {
+                int CID = Integer.parseInt(CIDText);
+                costumers = costumerDAO.get(CID);
+                CostumerTbModel model = new CostumerTbModel(costumers);
+                jTable4.setModel(model);
+
+            }if (CIDText.trim().isEmpty()) {
+                costumers = costumerDAO.getALL();
+                CostumerTbModel model = new CostumerTbModel(costumers);
+                jTable4.setModel(model);
+
+            }if (costumers.isEmpty()){
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "No costumers found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSearchActionPerformed
+    }//GEN-LAST:event_btnSearchCustomerActionPerformed
 
     private void btnADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDActionPerformed
         // TODO add your handling code here:
 
-        // Create dialog 
+        // Create dialog
         EmployeeAdd dialog = new EmployeeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, employeeDAO, null, false);
         dialog.setVisible(true);
-
     }//GEN-LAST:event_btnADDActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -769,12 +1239,12 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
         // Make sure a row is selected
         if (row >= 0) {
-        Employee selectedEmployee = (Employee) jTable1.getModel().getValueAt(row, objectColumnIndex);
+            Employee selectedEmployee = (Employee) jTable1.getModel().getValueAt(row, objectColumnIndex);
             // Now 'selectedEmployee' contains the entire Employee object for the selected row.
-            System.out.println(selectedEmployee); 
+            System.out.println(selectedEmployee);
 
             // Add your code to open the EmployeeAdd dialog with the selectedEmployee for updating
-            // Example: 
+            // Example:
             EmployeeAdd dialog = new EmployeeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, employeeDAO, selectedEmployee, true);
             dialog.setVisible(true);
 
@@ -782,7 +1252,6 @@ public class EmployeesSearch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an employee", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         //dialog.setVisible(true);
-
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -813,90 +1282,105 @@ public class EmployeesSearch extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(EmployeesSearch.this, "Employee delete succesfully.","Employee Deleted",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnSearchProductActionPerformed
+    private void employeeIDtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeIDtextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_employeeIDtextFieldActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
+            String idText = employeeIDtextField.getText();
+            List<Employee> employees = null;
+            if (!idText.trim().isEmpty()) {
+                int id = Integer.parseInt(idText);
+                employees= employeeDAO.get(id);
+                EmployeeTbModel model = new EmployeeTbModel(employees);
+                jTable1.setModel(model);
+                // Now you can use the 'id' to search for the employee
 
-            String ProductIDtext = ProductIDtextField.getText();
-            List<Product> products = null;
-            if (!ProductIDtext.equals(previousProductIDValue)) {
-                // Giá trị đã thay đổi, thực hiện các hành động bạn muốn ở đây
-                // Ví dụ: Gọi tới phương thức setRowCountToZero trong ProductTbModel
-                if ((jTable2.getModel() instanceof ProductTbModel)){
-                    ProductTbModel productModel = (ProductTbModel) jTable2.getModel();
-                    productModel.setRowCountToZero();
-                }
-                // Cập nhật giá trị trước đó với giá trị hiện tại
-                previousProductIDValue = ProductIDtext;
-            }
+            } if (idText.trim().isEmpty()) {
+                employees = employeeDAO.getALL();
+                EmployeeTbModel model = new EmployeeTbModel(employees);
+                jTable1.setModel(model);
 
-            if (!ProductIDtext.trim().isEmpty()) {
-                int ProductID = Integer.parseInt(ProductIDtext);
-                
-                products = productDao.get(ProductID);
-                ProductTbModel model = new ProductTbModel(products);
-                jTable2.setModel(model);
-                model.setRowCountToZero();
-            } if (ProductIDtext.trim().isEmpty()) {
-                products = productDao.getALL();
-                ProductTbModel model = new ProductTbModel(products);
-                jTable2.setModel(model);
-            } if (products.isEmpty()) {
-                JOptionPane.showMessageDialog(EmployeesSearch.this, "No product found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
+            } if (employees.isEmpty()) {
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "No employees found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSearchProductActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void ProductIDtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductIDtextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ProductIDtextFieldActionPerformed
+    private void btnADDproductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductTypeActionPerformed
+        ProductTypeAdd dialog = new ProductTypeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productTypeDao, null, false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnADDproductTypeActionPerformed
 
-    private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
-        int objectColumnIndex = ProductTbModel.Object_COL;
-        int row = jTable2.getSelectedRow();
+    private void btnUpdateProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProductTypeActionPerformed
+        int objectColumnIndex = ProductTypeTbModel.Object_COL;
+        int row = jTable3.getSelectedRow();
+
+        if (row >= 0) {
+            ProductType selectedProductType = (ProductType) jTable3.getModel().getValueAt(row, objectColumnIndex);
+            System.out.println(selectedProductType);
+
+            ProductTypeAdd dialog = new ProductTypeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productTypeDao, selectedProductType, true);
+            dialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an employee", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUpdateProductTypeActionPerformed
+
+    private void btnDeleteProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductTypeActionPerformed
+        int objectColumnIndex = ProductTypeTbModel.Object_COL;
+        int row = jTable3.getSelectedRow();
 
         if(row >=0) {
             int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Delete this product type?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
             if (respone != JOptionPane.YES_OPTION) {
                 return;
             }
-            Product tmProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
+            ProductType tmProductType = (ProductType) jTable3.getModel().getValueAt(row, objectColumnIndex);
             try {
-                productDao.delete(tmProduct.getProductID());
-            }  catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                productTypeDao.deleteStr(tmProductType.getTypeID());
+                refreshProductTypeView();
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "Product type delete succesfully.","Product type Deleted",JOptionPane.INFORMATION_MESSAGE);
+            }  catch (SQLException exc) {
+                JOptionPane.showMessageDialog(EmployeesSearch.this,"Cannot delete Product Type cause one or more Product are using it.","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            refreshProductView();
-            JOptionPane.showMessageDialog(EmployeesSearch.this, "Product delete succesfully.","Product Deleted",JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnDeleteProductActionPerformed
+    }//GEN-LAST:event_btnDeleteProductTypeActionPerformed
 
-    private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnUpdateProductActionPerformed
-        int objectColumnIndex = ProductTbModel.Object_COL;
-        int row = jTable2.getSelectedRow();
+    private void TypeIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TypeIDFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TypeIDFieldActionPerformed
 
-        // Kiểm tra xem hàng đã được chọn chưa
-        if(row > 0) {
-            Product selectedProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
-            productDao.get(selectedProduct.getProductID());
-            System.out.println(selectedProduct);
+    private void btnSearchProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductTypeActionPerformed
+        try {
+            String TypeIdText = TypeIDField.getText();
+            List<ProductType> productTypes = null;
+            if (!TypeIdText.trim().isEmpty()) {
+                productTypes= productTypeDao.getStr(TypeIdText);
+                ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
+                jTable3.setModel(model);
+                // Now you can use the 'id' to search for the employee
 
-            ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productDao, selectedProduct, true);
-            dialog.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an product", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } if (TypeIdText.trim().isEmpty()) {
+                productTypes = productTypeDao.getALL();
+                ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
+                jTable3.setModel(model);
+
+            } if (productTypes.isEmpty()) {
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "No employees found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnUpdateProductActionPerformed
-
-    private void btnADDproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductActionPerformed
-        ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled,EmployeesSearch.this, productDao, null, false);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_btnADDproductActionPerformed
+    }//GEN-LAST:event_btnSearchProductTypeActionPerformed
 
     private void btnViewProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnViewProductActionPerformed
         // Get the selected row index from jTable2
@@ -921,152 +1405,101 @@ public class EmployeesSearch extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnViewProductActionPerformed
 
-    private void btnSearchProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductTypeActionPerformed
-        try {
-            String TypeIdText = TypeIDField.getText();
-            List<ProductType> productTypes = null;
-            if (!TypeIdText.trim().isEmpty()) {
-                productTypes= productTypeDao.getStr(TypeIdText);
-                ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
-                jTable3.setModel(model);
-                // Now you can use the 'id' to search for the employee
-                
-            } if (TypeIdText.trim().isEmpty()) {
-                productTypes = productTypeDao.getALL();
-                ProductTypeTbModel model = new ProductTypeTbModel(productTypes);
-                jTable3.setModel(model);
-                
-            } if (productTypes.isEmpty()) {
-                JOptionPane.showMessageDialog(EmployeesSearch.this, "No employees found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception exc) {
-            JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
+    private void btnADDproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductActionPerformed
+        ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled,EmployeesSearch.this, productDao, null, false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnADDproductActionPerformed
+
+    private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, SQLException, IOException {//GEN-FIRST:event_btnUpdateProductActionPerformed
+        int objectColumnIndex = ProductTbModel.Object_COL;
+        int row = jTable2.getSelectedRow();
+
+        // Kiểm tra xem hàng đã được chọn chưa
+        if(row > 0) {
+            Product selectedProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
+            productDao.get(selectedProduct.getProductID());
+            System.out.println(selectedProduct);
+
+            ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productDao, selectedProduct, true);
+            dialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an product", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSearchProductTypeActionPerformed
+    }//GEN-LAST:event_btnUpdateProductActionPerformed
 
-    private void TypeIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TypeIDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TypeIDFieldActionPerformed
-
-    private void btnDeleteProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductTypeActionPerformed
-        int objectColumnIndex = ProductTypeTbModel.Object_COL;
-        int row = jTable3.getSelectedRow();
+    private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
+        int objectColumnIndex = ProductTbModel.Object_COL;
+        int row = jTable2.getSelectedRow();
 
         if(row >=0) {
             int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Delete this product type?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
             if (respone != JOptionPane.YES_OPTION) {
                 return;
             }
-            ProductType tmProductType = (ProductType) jTable3.getModel().getValueAt(row, objectColumnIndex);
+            Product tmProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
             try {
-                productTypeDao.deleteStr(tmProductType.getTypeID());
-                refreshProductTypeView();
-                JOptionPane.showMessageDialog(EmployeesSearch.this, "Product type delete succesfully.","Product type Deleted",JOptionPane.INFORMATION_MESSAGE);
-            }  catch (SQLException exc) {
-                JOptionPane.showMessageDialog(EmployeesSearch.this,"Cannot delete Product Type cause one or more Product are using it.","Error", JOptionPane.ERROR_MESSAGE);
-                JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
+                productDao.delete(tmProduct.getProductID());
+            }  catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
+
+            refreshProductView();
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Product delete succesfully.","Product Deleted",JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnDeleteProductTypeActionPerformed
+    }//GEN-LAST:event_btnDeleteProductActionPerformed
 
-    private void btnUpdateProductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProductTypeActionPerformed
-        int objectColumnIndex = ProductTypeTbModel.Object_COL;
-        int row = jTable3.getSelectedRow();
+    private void ProductIDtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductIDtextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductIDtextFieldActionPerformed
 
-        if (row >= 0) {
-            ProductType selectedProductType = (ProductType) jTable3.getModel().getValueAt(row, objectColumnIndex);
-            System.out.println(selectedProductType);
-
-            ProductTypeAdd dialog = new ProductTypeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productTypeDao, selectedProductType, true);
-            dialog.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an employee", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnUpdateProductTypeActionPerformed
-
-    private void btnADDproductTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDproductTypeActionPerformed
-        ProductTypeAdd dialog = new ProductTypeAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productTypeDao, null, false);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_btnADDproductTypeActionPerformed
-
-    private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
+    private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
         try {
-            String CIDText = CustomerIDTextField.getText();
-            List<Costumer> costumers = null;
-            if (!CIDText.trim().isEmpty() ) {
-                int CID = Integer.parseInt(CIDText);
-                costumers = costumerDAO.get(CID);
-                CostumerTbModel model = new CostumerTbModel(costumers);
-                jTable4.setModel(model);
 
-            }if (CIDText.trim().isEmpty()) {
-                costumers = costumerDAO.getALL();
-                CostumerTbModel model = new CostumerTbModel(costumers);
-                jTable4.setModel(model);
-                
-            }if (costumers.isEmpty()){
-                JOptionPane.showMessageDialog(EmployeesSearch.this, "No costumers found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
+            String ProductIDtext = ProductIDtextField.getText();
+            List<Product> products = null;
+            if (!ProductIDtext.equals(previousProductIDValue)) {
+                // Giá trị đã thay đổi, thực hiện các hành động bạn muốn ở đây
+                // Ví dụ: Gọi tới phương thức setRowCountToZero trong ProductTbModel
+                if ((jTable2.getModel() instanceof ProductTbModel)){
+                    ProductTbModel productModel = (ProductTbModel) jTable2.getModel();
+                    productModel.setRowCountToZero();
+                }
+                // Cập nhật giá trị trước đó với giá trị hiện tại
+                previousProductIDValue = ProductIDtext;
+            }
+
+            if (!ProductIDtext.trim().isEmpty()) {
+                int ProductID = Integer.parseInt(ProductIDtext);
+
+                products = productDao.get(ProductID);
+                ProductTbModel model = new ProductTbModel(products);
+                jTable2.setModel(model);
+                model.setRowCountToZero();
+            } if (ProductIDtext.trim().isEmpty()) {
+                products = productDao.getALL();
+                ProductTbModel model = new ProductTbModel(products);
+                jTable2.setModel(model);
+            } if (products.isEmpty()) {
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "No product found for the given ID", "Result", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSearchCustomerActionPerformed
+    }//GEN-LAST:event_btnSearchProductActionPerformed
 
-    private void CustomerIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerIDTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CustomerIDTextFieldActionPerformed
-
-    private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
-        int objectColumnIndex = CostumerTbModel.OBJECT_COL;
-        int row = jTable4.getSelectedRow(); 
-
-        if(row >=0) {
-            int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Delete this customer?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-            if (respone != JOptionPane.YES_OPTION) {
-                return;
-            }
-            Costumer tmCostumer = (Costumer) jTable4.getModel().getValueAt(row, objectColumnIndex);
-            try {
-                costumerDAO.delete(tmCostumer.getCID());
-            }  catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            }
-
-            refreshCostumerView();
-            JOptionPane.showMessageDialog(EmployeesSearch.this, "Customer delete succesfully.","Customer Deleted",JOptionPane.INFORMATION_MESSAGE);
+    private void calculateTotalPrice(Product theProduct) {
+        try {
+            String QuantityText = Quantity_TextField.getText();
+            int Quantity = Integer.parseInt(QuantityText);
+            int Total_price = Quantity * theProduct.getExpPirce();
+            Total_TextField.setText(String.valueOf(Total_price));
+        } catch (NumberFormatException exc) {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Invalid ID format", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnDeleteCustomerActionPerformed
-
-    private void btnUpdateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCustomerActionPerformed
-        int objectColumnIndex = CostumerTbModel.OBJECT_COL;
-        int row = jTable4.getSelectedRow();
-
-        if (row >= 0) {
-            Costumer temCostumer = (Costumer) jTable4.getModel().getValueAt(row, objectColumnIndex);
-            System.out.println(temCostumer);
-
-            CustomerAdd dialog = new CustomerAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, costumerDAO, temCostumer, true);
-            dialog.setVisible(true);
-
-            refreshCostumerView();
-        } else {
-            JOptionPane.showMessageDialog(EmployeesSearch.this, "Customer delete succesfully.","Customer Deleted",JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_btnUpdateCustomerActionPerformed
-
-    private void btnADDcustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomerActionPerformed
-        CustomerAdd dialog = new CustomerAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, costumerDAO, null, false);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_btnADDcustomerActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }
 
 
     /**
@@ -1106,21 +1539,40 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BillPanel;
+    private javax.swing.JTextField Bill_ID_TextFiled;
     private javax.swing.JPanel CostumersPanel;
+    private javax.swing.JTextField CustomerAddress_TextField;
     private javax.swing.JTextField CustomerIDTextField;
+    public static javax.swing.JComboBox<String> CustomerID_ComboBox;
+    private javax.swing.JTextField CustomerName_TextField;
+    private javax.swing.JTextField CustomerPhone_TextField;
+    public static javax.swing.JComboBox<String> EmployeeID_ComboBox;
+    private javax.swing.JTextField EmployeeName_TextField;
     private javax.swing.JPanel EmployeePanel;
+    private javax.swing.JLabel HelloLabel;
+    public static javax.swing.JComboBox<String> ProductID_ComboBox;
     private javax.swing.JTextField ProductIDtextField;
+    private javax.swing.JTextField ProductName_TextField;
     private javax.swing.JPanel ProductPanel;
+    private javax.swing.JTextField ProductPrice_TextField;
     private javax.swing.JPanel ProductTypesPanel;
+    private javax.swing.JTextField Quantity_TextField;
+    private javax.swing.JTextField Total_TextField;
     private javax.swing.JTextField TypeIDField;
     private javax.swing.JButton btnADD;
     private javax.swing.JButton btnADDcustomer;
+    private javax.swing.JButton btnADDcustomer1;
+    private javax.swing.JButton btnADDcustomer2;
+    private javax.swing.JButton btnADDcustomer3;
+    private javax.swing.JButton btnADDcustomer4;
+    private javax.swing.JButton btnADDcustomer6;
     private javax.swing.JButton btnADDproduct;
     private javax.swing.JButton btnADDproductType;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteCustomer;
     private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnDeleteProductType;
+    private javax.swing.JButton btnGETid_Button;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JButton btnSearchProduct;
@@ -1131,10 +1583,20 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdateProductType;
     private javax.swing.JButton btnViewProduct;
     private javax.swing.JTextField employeeIDtextField;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1155,8 +1617,8 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
 

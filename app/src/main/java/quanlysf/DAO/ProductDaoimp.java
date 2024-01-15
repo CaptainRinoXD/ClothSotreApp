@@ -10,6 +10,8 @@ import java.io.*;
 
 
 import quanlysf.function.DatabaseConnector;
+import quanlysf.ui.EmployeesSearch;
+
 import java.util.ArrayList;
 
 
@@ -201,8 +203,51 @@ public class ProductDaoimp implements ProductDao {
 
     @Override
     public List<Product> getAll_IDList() throws SQLException, FileNotFoundException, IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll_IDList'");
+       DatabaseConnector dbConnector;
+        dbConnector = new DatabaseConnector();
+        Connection connection = dbConnector.connect();
+
+        EmployeesSearch.ProductID_ComboBox.removeAllItems();
+
+        List<Product> products = new ArrayList<>();
+        String sql = "Select * from product";
+
+        Statement myStmt = connection.createStatement();
+        ResultSet rs = myStmt.executeQuery(sql);
+
+        while(rs.next()) {
+            int OProductID = rs.getInt("ProductID");
+            String OProductIDtext = String.valueOf(OProductID);
+            EmployeesSearch.ProductID_ComboBox.addItem(OProductIDtext);
+
+            String TypeID = rs.getString("TypeID");
+            String ProductName = rs.getString("ProductName");
+            int ProductQuanity = rs.getInt("ProductQuanity");
+            InputStream imageStream = rs.getBinaryStream("ProductImage");
+            
+            // Lưu ảnh lấy được sang file tạm thời
+
+            File imageFile = null;
+            if (imageStream != null) {
+                // Lưu ảnh lấy được sang file tạm thời
+                imageFile = new File("TempImage.jpg");
+                try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = imageStream.read(buffer)) != -1) {
+                        fos.write(buffer, 0, bytesRead);
+                    }
+                }
+            }
+
+            int ImpPrice = rs.getInt("ImpPrice");
+            int ExpPrice = rs.getInt("ExpPrice");
+            java.sql.Date impDate = rs.getDate("ImpDate");
+
+            Product product = new Product(OProductID, TypeID, ProductName, ProductQuanity, imageFile,ImpPrice,ExpPrice,impDate);
+            products.add(product);
+        }
+        return products;
     }
     
 }

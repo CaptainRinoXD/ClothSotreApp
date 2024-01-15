@@ -7,6 +7,7 @@ import java.util.List;
 import java.sql.*;
 
 import quanlysf.function.DatabaseConnector;
+import quanlysf.ui.EmployeesSearch;
 
 public class CostumerDAOimp implements CostumerDAO{
 
@@ -127,8 +128,29 @@ public class CostumerDAOimp implements CostumerDAO{
 
     @Override
     public List<Costumer> getAll_IDList() throws SQLException, FileNotFoundException, IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll_IDList'");
+        DatabaseConnector dbConnector = new DatabaseConnector();
+        Connection connection = dbConnector.connect();
+
+        EmployeesSearch.CustomerID_ComboBox.removeAllItems();
+
+        List<Costumer> costumers = new ArrayList<>();
+        String sql = "Select * from costumer"; 
+
+        Statement myStmt = connection.createStatement();
+        ResultSet Rs = myStmt.executeQuery(sql);
+
+        while(Rs.next()){
+            int CID = Rs.getInt("CID");
+            String CustomerID = String.valueOf(CID);
+            EmployeesSearch.CustomerID_ComboBox.addItem(CustomerID);
+            String Cname = Rs.getString("Cname");
+            String Caddress = Rs.getString("Caddress");
+            int Cnumber = Rs.getInt("Cnumber");
+
+            Costumer costumer = new Costumer(CID, Cname, Caddress, Cnumber);
+            costumers.add(costumer);
+        }
+        return costumers;
     }
 
     @Override

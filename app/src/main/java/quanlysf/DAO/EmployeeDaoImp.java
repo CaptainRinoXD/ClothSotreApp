@@ -8,6 +8,7 @@ import java.util.List;
 
 
 import quanlysf.function.DatabaseConnector;
+import quanlysf.ui.EmployeesSearch;
 
 public class EmployeeDaoImp implements EmployeeDAO {
 
@@ -149,9 +150,31 @@ public class EmployeeDaoImp implements EmployeeDAO {
 
     @Override
     public List<Employee> getAll_IDList() throws SQLException, FileNotFoundException, IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll_IDList'");
-    }
+        DatabaseConnector dbConnector = new DatabaseConnector();
+        Connection connection = dbConnector.connect();
 
-    
+        EmployeesSearch.EmployeeID_ComboBox.removeAllItems();
+
+        List<Employee> employees = new ArrayList<>();
+        String sql = "Select * from employees"; 
+
+        Statement myStmt = connection.createStatement();
+        ResultSet Rs = myStmt.executeQuery(sql);
+
+        while(Rs.next()) {
+            int id = Rs.getInt("id");
+            String EmID = String.valueOf(id);
+            EmployeesSearch.EmployeeID_ComboBox.addItem(EmID);
+            String name = Rs.getString("name");
+            int age = Rs.getInt("age");
+            int salary = Rs.getInt("salary");
+            String email = Rs.getString("email");
+            String department = Rs.getString("department");
+
+            Employee employee = new Employee(id, name, age, salary, email, department);
+			employees.add(employee);
+            
+        }
+        return employees;
+    }
 }
