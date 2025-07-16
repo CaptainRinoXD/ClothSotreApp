@@ -14,13 +14,16 @@ import java.util.List;
  * @author dinhd
  */
 public interface DAO<T> {
+    List<T>getlong(long i) throws SQLException;
     List<T>get(int i) throws SQLException, FileNotFoundException, IOException;
     List<T>getStr(String i) throws SQLException, FileNotFoundException, IOException;
+    
 
     List<T> getALL() throws SQLException, FileNotFoundException, IOException;
     List<T> getAll_IDList() throws SQLException, FileNotFoundException, IOException;
     
     int save(T t) throws SQLException;
+
 
     int insert(T t) throws SQLException, FileNotFoundException;
     
@@ -28,6 +31,9 @@ public interface DAO<T> {
 
     int delete (int i) throws SQLException;
     int deleteStr (String i) throws SQLException;
+    long deletelong (Long i) throws SQLException;
+
+
     
 }
 

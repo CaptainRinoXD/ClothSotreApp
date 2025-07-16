@@ -887,6 +887,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField1">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="text" type="java.lang.String" value="Using System Date"/>
                       </Properties>
                       <Events>
@@ -902,6 +903,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="Bill_ID_TextFiled">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel10">
                       <Properties>
@@ -920,11 +924,17 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="EmployeeName_TextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EmployeeName_TextFieldActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="CustomerName_TextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CustomerName_TextFieldActionPerformed"/>
                       </Events>
@@ -938,8 +948,14 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="CustomerPhone_TextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="CustomerAddress_TextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel13">
                       <Properties>
@@ -987,7 +1003,7 @@
                                           <Component id="ProductID_ComboBox" min="-2" pref="160" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                      <Component id="jButton2" min="-2" pref="55" max="-2" attributes="0"/>
+                                      <Component id="btnADD_product" min="-2" pref="55" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
@@ -1018,15 +1034,17 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="btnADDcustomer1" min="-2" pref="93" max="-2" attributes="0"/>
+                                              <Component id="btnSaveBill" min="-2" pref="93" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnADDcustomer2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="BtnDeleteFromArray" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnADDcustomer3" min="-2" pref="103" max="-2" attributes="0"/>
+                                              <Component id="btnDeleteBill" min="-2" pref="103" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnADDcustomer4" min="-2" pref="103" max="-2" attributes="0"/>
+                                              <Component id="btnGetBill" min="-2" pref="103" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="btnADDcustomer6" min="-2" pref="103" max="-2" attributes="0"/>
+                                              <Component id="Bill_ID_search_TextField" min="-2" pref="113" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnSearchBill" min="-2" pref="103" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
@@ -1050,7 +1068,7 @@
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="ProductID_ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnADD_product" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1083,11 +1101,12 @@
                               <Component id="jScrollPane5" min="-2" pref="246" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnADDcustomer1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="btnADDcustomer2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="btnADDcustomer3" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="btnADDcustomer4" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="btnADDcustomer6" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="btnSaveBill" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="BtnDeleteFromArray" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="btnDeleteBill" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="btnGetBill" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="btnSearchBill" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="Bill_ID_search_TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1145,6 +1164,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="ProductName_TextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel17">
                       <Properties>
@@ -1155,6 +1177,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="ProductPrice_TextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel18">
                       <Properties>
@@ -1189,13 +1214,19 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="Total_TextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                      </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton2">
+                    <Component class="javax.swing.JButton" name="btnADD_product">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Add"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnADD_productActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnADDcustomer1">
+                    <Component class="javax.swing.JButton" name="btnSaveBill">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="e8" red="ec" type="rgb"/>
@@ -1203,10 +1234,10 @@
                         <Property name="text" type="java.lang.String" value="Save Bill"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnADDcustomer1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveBillActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnADDcustomer2">
+                    <Component class="javax.swing.JButton" name="BtnDeleteFromArray">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="e8" red="ec" type="rgb"/>
@@ -1214,10 +1245,10 @@
                         <Property name="text" type="java.lang.String" value="Delete Product"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnADDcustomer2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnDeleteFromArrayActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnADDcustomer3">
+                    <Component class="javax.swing.JButton" name="btnDeleteBill">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="e8" red="ec" type="rgb"/>
@@ -1225,10 +1256,10 @@
                         <Property name="text" type="java.lang.String" value="Delete Bill"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnADDcustomer3ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteBillActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnADDcustomer4">
+                    <Component class="javax.swing.JButton" name="btnGetBill">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="e8" red="ec" type="rgb"/>
@@ -1236,10 +1267,10 @@
                         <Property name="text" type="java.lang.String" value="Get Bill"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnADDcustomer4ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGetBillActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnADDcustomer6">
+                    <Component class="javax.swing.JButton" name="btnSearchBill">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="e8" red="ec" type="rgb"/>
@@ -1247,8 +1278,10 @@
                         <Property name="text" type="java.lang.String" value="Search"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnADDcustomer6ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchBillActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="Bill_ID_search_TextField">
                     </Component>
                   </SubComponents>
                 </Container>

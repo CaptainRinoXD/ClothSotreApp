@@ -5,15 +5,20 @@
 package quanlysf.ui;
 import quanlysf.Bill_Feature.AutoGenerateID;
 import quanlysf.DAO.*;
+
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import java.beans.Customizer;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /**
  *
@@ -24,8 +29,11 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private CostumerDAO costumerDAO;
     private ProductDao productDao;
     private ProductTypeDao productTypeDao;
+    private BillDAO billDAO;
+    private DetailBillDAO detailBillDAO;
     private String previousProductIDValue = "";
     private AutoGenerateID autoGenerateID;
+    
 
     /**
      * Creates new form EmployeesSearch
@@ -39,6 +47,8 @@ public class EmployeesSearch extends javax.swing.JFrame {
             costumerDAO = new CostumerDAOimp();
             productDao = new ProductDaoimp();
             productTypeDao = new ProductTypeImp();
+            billDAO = new BillDaoImp();
+            detailBillDAO = new DetailBillDaoImp();
             autoGenerateID = new AutoGenerateID();
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this,"Error" + exc , "Error", JOptionPane.ERROR_MESSAGE);
@@ -184,12 +194,13 @@ public class EmployeesSearch extends javax.swing.JFrame {
         Quantity_TextField = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         Total_TextField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        btnADDcustomer1 = new javax.swing.JButton();
-        btnADDcustomer2 = new javax.swing.JButton();
-        btnADDcustomer3 = new javax.swing.JButton();
-        btnADDcustomer4 = new javax.swing.JButton();
-        btnADDcustomer6 = new javax.swing.JButton();
+        btnADD_product = new javax.swing.JButton();
+        btnSaveBill = new javax.swing.JButton();
+        BtnDeleteFromArray = new javax.swing.JButton();
+        btnDeleteBill = new javax.swing.JButton();
+        btnGetBill = new javax.swing.JButton();
+        btnSearchBill = new javax.swing.JButton();
+        Bill_ID_search_TextField = new javax.swing.JTextField();
         HelloLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -629,6 +640,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel8.setText("Export Date");
 
+        jTextField1.setEditable(false);
         jTextField1.setText("Using System Date");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -639,18 +651,22 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel9.setText("Bill ID");
 
+        Bill_ID_TextFiled.setEditable(false);
+
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel10.setText("Employee Name");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel11.setText("Customer Name");
 
+        EmployeeName_TextField.setEditable(false);
         EmployeeName_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmployeeName_TextFieldActionPerformed(evt);
             }
         });
 
+        CustomerName_TextField.setEditable(false);
         CustomerName_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CustomerName_TextFieldActionPerformed(evt);
@@ -659,6 +675,10 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel12.setText("Customer Information");
+
+        CustomerPhone_TextField.setEditable(false);
+
+        CustomerAddress_TextField.setEditable(false);
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel13.setText("Phone");
@@ -773,8 +793,12 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel16.setText("Product Name");
 
+        ProductName_TextField.setEditable(false);
+
         jLabel17.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel17.setText("Product Price");
+
+        ProductPrice_TextField.setEditable(false);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel18.setText("Detail Bill Information");
@@ -792,45 +816,52 @@ public class EmployeesSearch extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel20.setText("Total Price");
 
-        jButton2.setText("Add");
+        Total_TextField.setEditable(false);
 
-        btnADDcustomer1.setBackground(new java.awt.Color(236, 232, 255));
-        btnADDcustomer1.setText("Save Bill");
-        btnADDcustomer1.addActionListener(new java.awt.event.ActionListener() {
+        btnADD_product.setText("Add");
+        btnADD_product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnADDcustomer1ActionPerformed(evt);
+                btnADD_productActionPerformed(evt);
             }
         });
 
-        btnADDcustomer2.setBackground(new java.awt.Color(236, 232, 255));
-        btnADDcustomer2.setText("Delete Product");
-        btnADDcustomer2.addActionListener(new java.awt.event.ActionListener() {
+        btnSaveBill.setBackground(new java.awt.Color(236, 232, 255));
+        btnSaveBill.setText("Save Bill");
+        btnSaveBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnADDcustomer2ActionPerformed(evt);
+                btnSaveBillActionPerformed(evt);
             }
         });
 
-        btnADDcustomer3.setBackground(new java.awt.Color(236, 232, 255));
-        btnADDcustomer3.setText("Delete Bill");
-        btnADDcustomer3.addActionListener(new java.awt.event.ActionListener() {
+        BtnDeleteFromArray.setBackground(new java.awt.Color(236, 232, 255));
+        BtnDeleteFromArray.setText("Delete Product");
+        BtnDeleteFromArray.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnADDcustomer3ActionPerformed(evt);
+                BtnDeleteFromArrayActionPerformed(evt);
             }
         });
 
-        btnADDcustomer4.setBackground(new java.awt.Color(236, 232, 255));
-        btnADDcustomer4.setText("Get Bill");
-        btnADDcustomer4.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteBill.setBackground(new java.awt.Color(236, 232, 255));
+        btnDeleteBill.setText("Delete Bill");
+        btnDeleteBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnADDcustomer4ActionPerformed(evt);
+                btnDeleteBillActionPerformed(evt);
             }
         });
 
-        btnADDcustomer6.setBackground(new java.awt.Color(236, 232, 255));
-        btnADDcustomer6.setText("Search");
-        btnADDcustomer6.addActionListener(new java.awt.event.ActionListener() {
+        btnGetBill.setBackground(new java.awt.Color(236, 232, 255));
+        btnGetBill.setText("Get Bill");
+        btnGetBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnADDcustomer6ActionPerformed(evt);
+                btnGetBillActionPerformed(evt);
+            }
+        });
+
+        btnSearchBill.setBackground(new java.awt.Color(236, 232, 255));
+        btnSearchBill.setText("Search");
+        btnSearchBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchBillActionPerformed(evt);
             }
         });
 
@@ -851,7 +882,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                             .addComponent(Quantity_TextField)
                             .addComponent(ProductID_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnADD_product, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -875,15 +906,17 @@ public class EmployeesSearch extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane5)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnADDcustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSaveBill, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnADDcustomer2)
+                                .addComponent(BtnDeleteFromArray)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnADDcustomer3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDeleteBill, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnADDcustomer4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGetBill, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnADDcustomer6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Bill_ID_search_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -900,7 +933,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
                             .addComponent(ProductID_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))
+                            .addComponent(btnADD_product))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
@@ -925,11 +958,12 @@ public class EmployeesSearch extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnADDcustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnADDcustomer2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnADDcustomer3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnADDcustomer4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnADDcustomer6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSaveBill, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnDeleteFromArray, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteBill, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGetBill, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Bill_ID_search_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -999,158 +1033,7 @@ public class EmployeesSearch extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnADDcustomer6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnADDcustomer6ActionPerformed
-
-    private void btnADDcustomer4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnADDcustomer4ActionPerformed
-
-    private void btnADDcustomer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnADDcustomer3ActionPerformed
-
-    private void btnADDcustomer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnADDcustomer2ActionPerformed
-
-    private void btnADDcustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomer1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnADDcustomer1ActionPerformed
-
-    private void Quantity_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Quantity_TextFieldActionPerformed
-        ProductID_ComboBoxActionPerformed(evt);
-    }//GEN-LAST:event_Quantity_TextFieldActionPerformed
-
-    private void ProductID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductID_ComboBoxActionPerformed
-        ProductID_ComboBox.setEditable(true);
-        String ProductID_text = String.valueOf(ProductID_ComboBox.getSelectedItem());
-        
-
-        if (!ProductID_text.isEmpty() && ProductID_text != null) {
-            try {
-                int ProductID = Integer.parseInt(ProductID_text);
-                List<Product> productList = productDao.get(ProductID);
-                if (!productList.isEmpty()) {
-                    Product products = productList.get(0);
-                    ProductName_TextField.setText(products.getProductName());
-                    ProductPrice_TextField.setText(String.valueOf(products.getExpPirce()));
-                    calculateTotalPrice(products);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No product found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException | SQLException | IOException e) {
-                // Handle exceptions (e.g., parsing error, SQL error)
-                e.printStackTrace();
-                // You might want to show an error message to the user
-                //*** ERROR
-                //JOptionPane.showMessageDialog(this, "Error retrieving product details", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_ProductID_ComboBoxActionPerformed
-
-    private void btnGETid_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGETid_ButtonActionPerformed
-        try {
-            productDao.getAll_IDList();
-            employeeDAO.getAll_IDList();
-            costumerDAO.getAll_IDList();
-            
-        } catch (SQLException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnGETid_ButtonActionPerformed
-
-    private void CustomerName_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerName_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CustomerName_TextFieldActionPerformed
-
-    private void EmployeeName_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeName_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmployeeName_TextFieldActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void EmployeeID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeID_ComboBoxActionPerformed
-        String Bill_ID;
-        try {
-            Bill_ID = AutoGenerateID.generateUniqueBillID();
-            Bill_ID_TextFiled.setText(Bill_ID);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        EmployeeID_ComboBox.setEditable(true);
-        String EmIDtext = (String) EmployeeID_ComboBox.getSelectedItem();
-
-        // Check if a selection is made
-        if (EmIDtext != null && !EmIDtext.isEmpty()) {
-            try {
-                // Parse the selected employee ID
-                int EmID = Integer.parseInt(EmIDtext);
-
-                // Query the database to get the employee details
-                List<Employee> employees = employeeDAO.get(EmID);
-
-                // Check if there is a result in the list
-                if (!employees.isEmpty()) {
-                    // Get the first employee from the list (assuming only one employee is returned)
-                    Employee employee = employees.get(0);
-
-                    // Set the employee name in the EmployeeName_TextField
-                    EmployeeName_TextField.setText(employee.getName());
-                } else {
-                    // Handle the case where no employee is found for the given ID
-                    JOptionPane.showMessageDialog(this, "No employee found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException | SQLException | IOException e) {
-                // Handle exceptions (e.g., parsing error, SQL error)
-                e.printStackTrace();
-                // You might want to show an error message to the user
-                JOptionPane.showMessageDialog(this, "Error retrieving employee details", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_EmployeeID_ComboBoxActionPerformed
-
-    private void CustomerID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerID_ComboBoxActionPerformed
-        String Bill_ID;
-        try {
-            Bill_ID = AutoGenerateID.generateUniqueBillID();
-            Bill_ID_TextFiled.setText(Bill_ID);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        CustomerID_ComboBox.setEditable(true);
-        String CID_text = String.valueOf(CustomerID_ComboBox.getSelectedItem());
-
-        if (CID_text != null && !CID_text.isEmpty()) {
-            try {
-                int CID = Integer.parseInt(CID_text);
-                List<Costumer> costumerList = costumerDAO.get(CID);
-
-                if (!costumerList.isEmpty()) {
-                    Costumer costumer = costumerList.get(0);
-                    // Chỉ có thể set được khi chọn dữ liệu nào để lấy trong list
-                    CustomerName_TextField.setText(costumer.getCname());
-                    CustomerAddress_TextField.setText(costumer.getCaddress());
-                    CustomerPhone_TextField.setText(String.valueOf(costumer.getCnumber()));
-                } else {
-                    JOptionPane.showMessageDialog(this, "No customer found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException | SQLException | IOException e) {
-                // Handle exceptions (e.g., parsing error, SQL error)
-                e.printStackTrace();
-                // You might want to show an error message to the user
-                JOptionPane.showMessageDialog(this, "Error retrieving customer details", "Error", JOptionPane.ERROR_MESSAGE);
-                //JOptionPane.showMessageDialog(this, e, CID_text, JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_CustomerID_ComboBoxActionPerformed
+    
 
     private void btnADDcustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADDcustomerActionPerformed
         CustomerAdd dialog = new CustomerAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, costumerDAO, null, false);
@@ -1415,9 +1298,9 @@ public class EmployeesSearch extends javax.swing.JFrame {
         int row = jTable2.getSelectedRow();
 
         // Kiểm tra xem hàng đã được chọn chưa
-        if(row > 0) {
+        if(row >= 0) { //ListArray bắt đầu từ 0
             Product selectedProduct = (Product) jTable2.getModel().getValueAt(row, objectColumnIndex);
-            productDao.get(selectedProduct.getProductID());
+            productDao.get(selectedProduct.getProductID()); //update ảnh trong update dialog
             System.out.println(selectedProduct);
 
             ProductAdd dialog = new ProductAdd(null, rootPaneCheckingEnabled, EmployeesSearch.this, productDao, selectedProduct, true);
@@ -1455,7 +1338,6 @@ public class EmployeesSearch extends javax.swing.JFrame {
 
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
         try {
-
             String ProductIDtext = ProductIDtextField.getText();
             List<Product> products = null;
             if (!ProductIDtext.equals(previousProductIDValue)) {
@@ -1489,6 +1371,353 @@ public class EmployeesSearch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(EmployeesSearch.this, "Error: " + exc, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSearchProductActionPerformed
+
+    private void btnGETid_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGETid_ButtonActionPerformed
+        try {
+            productDao.getAll_IDList();
+            employeeDAO.getAll_IDList();
+            costumerDAO.getAll_IDList();
+            
+        } catch (SQLException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnGETid_ButtonActionPerformed
+
+    private void btnSearchBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBillActionPerformed
+        Long Bill_ID_search = Long.parseLong(String.valueOf(Bill_ID_search_TextField.getText()));
+        List<Bill> bills = null;
+        List<DetailBill> detailBills = null;
+        try {
+            bills = billDAO.getlong(Bill_ID_search);
+            if (bills.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Bill ID was found", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Bill bill = bills.get(0);
+            //System.out.println(bill.getEmID());
+            EmployeeID_ComboBox.setSelectedItem(bill.getEmID());
+            CustomerID_ComboBox.setSelectedItem(bill.getCID());
+            jTextField1.setText(String.valueOf(bill.getExpDate()));
+            Bill_ID_TextFiled.setText(Bill_ID_search_TextField.getText());
+
+            detailBills = detailBillDAO.getlong(Bill_ID_search);
+            DetailBill_Tb_Model dialog  = new DetailBill_Tb_Model(detailBills);
+            jTable5.setModel(dialog);
+            
+        } catch (NumberFormatException | SQLException exc) {
+            JOptionPane.showMessageDialog(this, "Error:" + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnSearchBillActionPerformed
+
+    private void btnGetBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetBillActionPerformed
+        Long Bill_ID_search = Long.parseLong(String.valueOf(Bill_ID_TextFiled.getText()));
+        List<Bill> bills = null;
+        try {
+            bills = billDAO.getlong(Bill_ID_search);
+            if (bills.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Bill ID was found", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Bill bill = bills.get(0);
+            Bill_Dialog dialog = new Bill_Dialog(null, rootPaneCheckingEnabled, EmployeesSearch.this, bill);
+            dialog.setVisible(true);
+        } catch (NumberFormatException | SQLException exc) {
+            JOptionPane.showMessageDialog(this, "Error:" + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGetBillActionPerformed
+
+    private void btnDeleteBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBillActionPerformed
+        Long Bill_ID_search = Long.parseLong(String.valueOf(Bill_ID_search_TextField.getText()));
+        int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Delete Bill?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        if (respone != JOptionPane.YES_OPTION) {
+            return;
+        }
+        try {
+            detailBillDAO.deletelong(Bill_ID_search);
+            billDAO.deletelong(Bill_ID_search);
+            clearTable();
+
+            JOptionPane.showMessageDialog(this, "Successfully Delete Bill", "Delete Bill", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumberFormatException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnDeleteBillActionPerformed
+
+    private void BtnDeleteFromArrayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteFromArrayActionPerformed
+        int row = jTable5.getSelectedRow();
+        if (row >= 0) { //ListArray bắt đầu từ 0
+            detailBills.remove(row);
+            DetailBill_Tb_Model model = new DetailBill_Tb_Model(detailBills);
+            jTable5.setModel(model);
+            model.fireTableDataChanged();
+            System.out.println("Successfully delete");
+        } else {
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "You must select an product", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BtnDeleteFromArrayActionPerformed
+
+    private void btnSaveBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveBillActionPerformed
+        SaveBill();
+        SaveDetailBill();
+    }//GEN-LAST:event_btnSaveBillActionPerformed
+
+    private void SaveBill() {
+        long Bill_ID = Long.parseLong(Bill_ID_TextFiled.getText());
+        int EmID = Integer.parseInt(String.valueOf(EmployeeID_ComboBox.getSelectedItem()));
+        System.out.println(EmID);
+        int CID = Integer.parseInt(String.valueOf(CustomerID_ComboBox.getSelectedItem()));
+        System.out.println(CID);
+        int respone = JOptionPane.showConfirmDialog(EmployeesSearch.this, "Save Bill?", "Confirm", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+        if (respone != JOptionPane.YES_OPTION) {
+            return;
+        } else {
+            Bill temBill = new Bill(Bill_ID, EmID, CID, null);
+            try {
+                billDAO.insert(temBill);
+                JOptionPane.showMessageDialog(EmployeesSearch.this, "Bill save succesfully.","Bill Saved",JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception exc) {
+                JOptionPane.showMessageDialog(this, "Error Saving Bill:" + exc.getMessage(), "Error",  JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//Saving Bill first then saving DetailBill
+
+    private void SaveDetailBill() {
+        for (DetailBill detailBill : detailBills) {
+            try {
+                detailBillDAO.insert(detailBill);
+                UpdateProductQuantity(detailBill); //update lại product quantity
+                //JOptionPane.showMessageDialog(EmployeesSearch.this, "Bill save succesfully.","Bill Saved",JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception exc) {
+                JOptionPane.showMessageDialog(this, "Error Saving Bill:" + exc.getMessage(), "Error",  JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//Saving DetailBill
+
+    private void UpdateProductQuantity(DetailBill detailBill ) {
+        int Bill_Quantity = detailBill.getDetailBill_Quantity();
+        int ProductID = detailBill.getProduct_ID();
+        try {
+            List<Product> productList = productDao.get(ProductID);
+            Product products = productList.get(0);
+    
+            String TypeID = products.getTypeID();
+            String ProductName = products.getProductName();
+            int ProductQuanity = products.getProductQuanity() - Bill_Quantity;
+            File ProductIamge = products.getProductImage();
+            int ExpPrice = products.getExpPirce();
+            Product product = new Product(ProductID, TypeID, ProductName, ProductQuanity, ProductIamge, ProductQuanity, ExpPrice, null);
+            productDao.update(product);
+            refreshProductTypeView(); //refresh lại khi cập nhật
+            JOptionPane.showMessageDialog(EmployeesSearch.this, "Update Quatity Successed","Update Quatity",JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(this, "Error update product Quantity:" + exc.getMessage(), "Error",  JOptionPane.ERROR_MESSAGE);
+        }
+    }//update product quantity
+
+    private void Quantity_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Quantity_TextFieldActionPerformed
+        ProductID_ComboBoxActionPerformed(evt);
+    }//GEN-LAST:event_Quantity_TextFieldActionPerformed
+
+    private void CustomerName_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerName_TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CustomerName_TextFieldActionPerformed
+
+    private void EmployeeName_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeName_TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmployeeName_TextFieldActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void ProductID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductID_ComboBoxActionPerformed
+        ProductID_ComboBox.setEditable(true);
+        String ProductID_text = String.valueOf(ProductID_ComboBox.getSelectedItem());
+        
+        if (!ProductID_text.isEmpty() && ProductID_text != null) {
+            try {
+                int ProductID = Integer.parseInt(ProductID_text);
+                List<Product> productList = productDao.get(ProductID);
+                if (!productList.isEmpty()) {
+                    Product products = productList.get(0);
+                    ProductName_TextField.setText(products.getProductName());
+                    ProductPrice_TextField.setText(String.valueOf(products.getExpPirce()));
+                    calculateTotalPrice(products);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No product found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException | SQLException | IOException e) {
+                // Handle exceptions (e.g., parsing error, SQL error)
+                e.printStackTrace();
+                // You might want to show an error message to the user
+                //*** ERROR
+                //JOptionPane.showMessageDialog(this, "Error retrieving product details", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ProductID_ComboBoxActionPerformed
+
+    private void EmployeeID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeID_ComboBoxActionPerformed
+        // xóa bỏ thông tin cũ khi Employee hoặc Customer bị thay đổi
+        clearTable();
+
+        Long Bill_ID;
+        try {
+            Bill_ID = Long.parseLong(AutoGenerateID.generateUniqueBillID());
+            Bill_ID_TextFiled.setText(String.valueOf(Bill_ID));
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        EmployeeID_ComboBox.setEditable(true);
+        String EmIDtext = String.valueOf(EmployeeID_ComboBox.getSelectedItem());
+        // Sử dụng (String) EmployeeID_CommboBox.getSlectedItem() rất hay gây lỗi khi Integer.parseInt
+
+        // Check if a selection is made
+        if (EmIDtext != null && !EmIDtext.isEmpty()) {
+            try {
+                // Parse the selected employee ID
+                int EmID = Integer.parseInt(EmIDtext);
+
+                // Query the database to get the employee details
+                List<Employee> employees = employeeDAO.get(EmID);
+
+                // Check if there is a result in the list
+                if (!employees.isEmpty()) {
+                    // Get the first employee from the list (assuming only one employee is returned)
+                    Employee employee = employees.get(0);
+
+                    // Set the employee name in the EmployeeName_TextField
+                    EmployeeName_TextField.setText(employee.getName());
+                } else {
+                    // Handle the case where no employee is found for the given ID
+                    JOptionPane.showMessageDialog(this, "No employee found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException | SQLException | IOException e) {
+                // Handle exceptions (e.g., parsing error, SQL error)
+                e.printStackTrace();
+                // You might want to show an error message to the user
+                JOptionPane.showMessageDialog(this, "Error retrieving employee details", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_EmployeeID_ComboBoxActionPerformed
+
+    private void CustomerID_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerID_ComboBoxActionPerformed
+        // xóa bỏ thông tin cũ khi Employee hoặc Customer bị thay đổi
+        clearTable();
+        
+        String Bill_ID;
+        try {
+            Bill_ID = AutoGenerateID.generateUniqueBillID();
+            Bill_ID_TextFiled.setText(Bill_ID);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        CustomerID_ComboBox.setEditable(true);
+        String CID_text = String.valueOf(CustomerID_ComboBox.getSelectedItem());
+
+        if (CID_text != null && !CID_text.isEmpty()) {
+            try {
+                int CID = Integer.parseInt(CID_text);
+                List<Costumer> costumerList = costumerDAO.get(CID);
+
+                if (!costumerList.isEmpty()) {
+                    Costumer costumer = costumerList.get(0);
+                    // Chỉ có thể set được khi chọn dữ liệu nào để lấy trong list
+                    CustomerName_TextField.setText(costumer.getCname());
+                    CustomerAddress_TextField.setText(costumer.getCaddress());
+                    CustomerPhone_TextField.setText(String.valueOf(costumer.getCnumber()));
+                } else {
+                    JOptionPane.showMessageDialog(this, "No customer found for the selected ID", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException | SQLException | IOException e) {
+                // Handle exceptions (e.g., parsing error, SQL error)
+                e.printStackTrace();
+                // You might want to show an error message to the user
+                JOptionPane.showMessageDialog(this, "Error retrieving customer details", "Error", JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(this, e, CID_text, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_CustomerID_ComboBoxActionPerformed
+
+    private List<DetailBill> detailBills = new ArrayList<>();
+    private void btnADD_productActionPerformed(java.awt.event.ActionEvent evt) {
+        //Kiểm tra tình trạng tồn hàng của sản phẩm
+        if (QuantityChecking()) {
+            JOptionPane.showMessageDialog(this, "Quantity Exceeded or Quantity is set to ZERO", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        long Bill_ID = Long.parseLong(Bill_ID_TextFiled.getText());
+        int ProductID = Integer.parseInt(String.valueOf(ProductID_ComboBox.getSelectedItem()));
+        int Product_Quantity = Integer.parseInt(String.valueOf(Quantity_TextField.getText()));
+        String ProductName = String.valueOf(ProductName_TextField.getText());
+
+        // Gọi hàm action của Quantity_TextField để tính tổng giá tiền trước khi lấy dữ liệu bên dưới
+        Quantity_TextFieldActionPerformed(evt);
+
+        long Product_Total = Long.parseLong(String.valueOf(Total_TextField.getText()));
+        // Check if ProductID already exists in detailBills
+        // Sử dụng Stream ta có thể sử dụng những bộ lọc như
+        // .filter(detailBill -> detailBill.getProduct_ID() == ProductID)
+        // .forEach(System.out::println);
+        boolean containsProductID = detailBills.stream().anyMatch(detailBill -> detailBill.getProduct_ID() == ProductID);
+    
+        if (!containsProductID) {
+            DetailBill temDetailBill = new DetailBill(Bill_ID, ProductID, ProductName, Product_Quantity, Product_Total);
+            detailBills.add(temDetailBill);
+    
+            DetailBill_Tb_Model model = new DetailBill_Tb_Model(detailBills);
+            jTable5.setModel(model);
+            Quantity_TextField.setText("0");
+            
+        } else {
+            // Handle duplicate ProductID (show a message, etc.)
+            JOptionPane.showMessageDialog(this, "ProductID already exists in the list", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    private void clearTable() {
+        //Xóa dữ liệu trong detailBills thuộc kiểu ArrayList<>
+        detailBills.clear();
+
+        // Create a new model with the updated list
+        DetailBill_Tb_Model model = new DetailBill_Tb_Model(detailBills);
+
+        // Set the new model to the JTable
+        jTable5.setModel(model);
+
+        // Notify the JTable that the data has changed
+        model.fireTableDataChanged();
+    }
+
+    private boolean QuantityChecking() {
+        boolean myStmt = false;
+        int ProductBill_Quantity = Integer.parseInt(String.valueOf(Quantity_TextField.getText()));
+        String ProductID_text = String.valueOf(ProductID_ComboBox.getSelectedItem());
+        if (!ProductID_text.isEmpty() && ProductID_text != null) {
+            int ProductID = Integer.parseInt(ProductID_text);
+            try {
+                List<Product> productList = productDao.get(ProductID);
+                if (!productList.isEmpty()) {
+                    Product products = productList.get(0);
+                    int Quantity = products.getProductQuanity();
+                    if (ProductBill_Quantity > Quantity || ProductBill_Quantity == 0) {
+                        myStmt = true;
+                    }
+                }
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        }
+        return myStmt;
+    }
 
     private void calculateTotalPrice(Product theProduct) {
         try {
@@ -1540,6 +1769,8 @@ public class EmployeesSearch extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BillPanel;
     private javax.swing.JTextField Bill_ID_TextFiled;
+    private javax.swing.JTextField Bill_ID_search_TextField;
+    private javax.swing.JButton BtnDeleteFromArray;
     private javax.swing.JPanel CostumersPanel;
     private javax.swing.JTextField CustomerAddress_TextField;
     private javax.swing.JTextField CustomerIDTextField;
@@ -1560,20 +1791,20 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JTextField Total_TextField;
     private javax.swing.JTextField TypeIDField;
     private javax.swing.JButton btnADD;
+    private javax.swing.JButton btnADD_product;
     private javax.swing.JButton btnADDcustomer;
-    private javax.swing.JButton btnADDcustomer1;
-    private javax.swing.JButton btnADDcustomer2;
-    private javax.swing.JButton btnADDcustomer3;
-    private javax.swing.JButton btnADDcustomer4;
-    private javax.swing.JButton btnADDcustomer6;
     private javax.swing.JButton btnADDproduct;
     private javax.swing.JButton btnADDproductType;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteBill;
     private javax.swing.JButton btnDeleteCustomer;
     private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnDeleteProductType;
     private javax.swing.JButton btnGETid_Button;
+    private javax.swing.JButton btnGetBill;
+    private javax.swing.JButton btnSaveBill;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearchBill;
     private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JButton btnSearchProduct;
     private javax.swing.JButton btnSearchProductType;
@@ -1583,7 +1814,6 @@ public class EmployeesSearch extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdateProductType;
     private javax.swing.JButton btnViewProduct;
     private javax.swing.JTextField employeeIDtextField;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

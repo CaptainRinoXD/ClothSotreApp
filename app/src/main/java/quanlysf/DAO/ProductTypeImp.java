@@ -151,5 +151,17 @@ public class ProductTypeImp implements ProductTypeDao {
         return resullt;
     }
 
+    @Override
+    public List<ProductType> getlong(long i) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getlong'");
+    }
+
+    @Override
+    public long deletelong(Long i) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deletelong'");
+    }
+
 	
 }

@@ -249,5 +249,17 @@ public class ProductDaoimp implements ProductDao {
         }
         return products;
     }
+
+    @Override
+    public List<Product> getlong(long i) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getlong'");
+    }
+
+    @Override
+    public long deletelong(Long i) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deletelong'");
+    }
     
 }

@@ -12,7 +12,7 @@ public class DetailBill {
 
     @Override
     public String toString() {
-        return "DetailBill{" + "Bill_ID=" + Bill_ID + ", Product_ID=" + Product_ID + ", DetailBill_Quantity=" + DetailBill_Quantity + ", Bill_Total=" + Bill_Total + '}';
+        return "DetailBill{" + "Bill_ID=" + Bill_ID + ", Product_ID=" + Product_ID + ", ProductName=" + ProductName + ", DetailBill_Quantity=" + DetailBill_Quantity + ", Bill_Total=" + Bill_Total + '}';
     }
 
     public long getBill_ID() {
@@ -31,6 +31,14 @@ public class DetailBill {
         this.Product_ID = Product_ID;
     }
 
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String ProductName) {
+        this.ProductName = ProductName;
+    }
+
     public int getDetailBill_Quantity() {
         return DetailBill_Quantity;
     }
@@ -47,14 +55,16 @@ public class DetailBill {
         this.Bill_Total = Bill_Total;
     }
 
-    public DetailBill(long Bill_ID, int Product_ID, int DetailBill_Quantity, long Bill_Total) {
+    public DetailBill(long Bill_ID, int Product_ID, String ProductName, int DetailBill_Quantity, long Bill_Total) {
         this.Bill_ID = Bill_ID;
         this.Product_ID = Product_ID;
+        this.ProductName = ProductName;
         this.DetailBill_Quantity = DetailBill_Quantity;
         this.Bill_Total = Bill_Total;
     }
     private long Bill_ID;
     private int Product_ID; 
+    private String ProductName;
     private int DetailBill_Quantity;
     private long Bill_Total;
 }
